@@ -1,5 +1,6 @@
 package mx.fei.gymmanagerapp.logic.employee;
 
+import java.util.Objects;
 import mx.fei.gymmanagerapp.logic.implementations.FieldValidator;
 
 public class Employee {
@@ -62,7 +63,7 @@ public class Employee {
     }
 
     public void setMaternalSurname(String maternalSurname) {
-        if (maternalSurname != null) {
+        if (!maternalSurname.isEmpty()) {
             FieldValidator fieldValidator = new FieldValidator();
             fieldValidator.checkName(maternalSurname);
         }
@@ -86,5 +87,37 @@ public class Employee {
         fieldValidator.checkEmail(eMail);
         this.eMail = eMail;
     }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return idEmployee == employee.idEmployee &&
+                Objects.equals(name, employee.name) &&
+                Objects.equals(paternalSurname, employee.paternalSurname) &&
+                Objects.equals(maternalSurname, employee.maternalSurname) &&
+                Objects.equals(position, employee.position) &&
+                Objects.equals(phoneNumber, employee.phoneNumber) &&
+                Objects.equals(eMail, employee.eMail);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idEmployee, name, paternalSurname, maternalSurname, position, phoneNumber, eMail);
+    }    
+    
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "idEmployee=" + idEmployee +
+                ", name='" + name + '\'' +
+                ", paternalSurname='" + paternalSurname + '\'' +
+                ", maternalSurname='" + maternalSurname + '\'' +
+                ", position='" + position + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", eMail='" + eMail + '\'' +
+                '}';
+    }    
  
 }

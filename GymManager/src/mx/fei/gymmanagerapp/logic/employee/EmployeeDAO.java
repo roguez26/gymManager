@@ -23,7 +23,7 @@ public class EmployeeDAO implements IEmployee {
         } catch (DAOException exception) {
             throw new DAOException("No fue posible realizar la validacion, intente registrar mas tarde.", Status.ERROR);
         }
-        if (idEmployee != employeeAux.getIdEmployee() && idEmployee > 0) {
+        if (idEmployee > 0) {
             throw new DAOException("El correo ya se encuentra registrado", Status.WARNING);
         }
         return false;
@@ -85,7 +85,7 @@ public class EmployeeDAO implements IEmployee {
 
     @Override
     public Employee getEmployeeByEmail(Employee employee) throws DAOException {
-        Employee employeeAux;
+        Employee employeeAux = new Employee();
         DatabaseManager databaseManager = new DatabaseManager();
         String statement = "SELECT * FROM empleado WHERE correo = ?";
         
@@ -101,9 +101,10 @@ public class EmployeeDAO implements IEmployee {
             LOG.log(Level.SEVERE, exception.getMessage(), exception);
             throw new DAOException("No fue posible obtener el empleado", Status.ERROR);
         }
-        return employee;
+        return employeeAux;
     }    
     
+    @Override
     public Employee getEmployeeById(int idEmployee) throws DAOException {
         Employee employee = new Employee();
         DatabaseManager databaseManager = new DatabaseManager();
