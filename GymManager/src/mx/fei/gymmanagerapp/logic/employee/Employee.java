@@ -94,6 +94,12 @@ public class Employee {
     }
     
     public void setPassword(String password) {
+        FieldValidator fieldValidator = new FieldValidator();
+        fieldValidator.checkPassword(password);
+        this.password = password;
+    }
+    
+    public void encryptPassword(String password) {
         this.password = password;
     }
     
