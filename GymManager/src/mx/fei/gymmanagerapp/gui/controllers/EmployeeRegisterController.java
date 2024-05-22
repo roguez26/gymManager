@@ -49,6 +49,9 @@ public class EmployeeRegisterController implements Initializable {
     @FXML
     private ComboBox<String> positionsComboBox;
     
+    @FXML
+    private TextField passwordTextField;
+    
     private EmployeeDAO employeeDAO = new EmployeeDAO();
 
     @Override
@@ -103,7 +106,8 @@ public class EmployeeRegisterController implements Initializable {
         maternalSurnameTextField.setText("");
         emailTextField.setText("");
         positionsComboBox.setValue("");
-        phoneNumberTextField.setText("");          
+        phoneNumberTextField.setText("");    
+        passwordTextField.setText("");
     }
 
     
@@ -113,7 +117,8 @@ public class EmployeeRegisterController implements Initializable {
                 paternalSurnameTextField.getText().isEmpty() ||
                 emailTextField.getText().isEmpty() ||
                 positionsComboBox.getValue() == null ||
-                phoneNumberTextField.getText().isEmpty()) {
+                phoneNumberTextField.getText().isEmpty() ||
+                passwordTextField.getText().isEmpty()) {
             emptyFieldsCheck = true;
         }
 
@@ -128,6 +133,7 @@ public class EmployeeRegisterController implements Initializable {
         employee.setEmail(emailTextField.getText());
         employee.setPosition(positionsComboBox.getValue());
         employee.setPhoneNumber(phoneNumberTextField.getText());
+        employee.setPassword(passwordTextField.getText());
         return employee;
     }    
     

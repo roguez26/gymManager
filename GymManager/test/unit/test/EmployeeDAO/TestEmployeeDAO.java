@@ -2,41 +2,18 @@ package unit.test.EmployeeDAO;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.ArrayList;
 import mx.fei.gymmanagerapp.logic.employee.Employee;
 import mx.fei.gymmanagerapp.logic.employee.EmployeeDAO;
 import mx.fei.gymmanagerapp.logic.implementations.DAOException;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.After;
 
 public class TestEmployeeDAO {
     
     private static final EmployeeDAO TEST_EMPLOYEE_DAO = new EmployeeDAO();
     private static final Employee TEST_EMPLOYEE = new Employee();
     private static final Employee AUX_TEST_EMPLOYEE = new Employee();
-    
-//    @Before
-//    public void setUp() {
-//        try {
-//            initializeTestEmployee();
-//            int idTestEmployee = TEST_EMPLOYEE_DAO.registerEmployee(TEST_EMPLOYEE);
-//            TEST_EMPLOYEE.setIdEmployee(idTestEmployee);    
-//        } catch (DAOException exception) {
-//            Logger.getLogger(TestEmployeeDAO.class.getName()).log(Level.SEVERE, null, exception);
-//        }
-//    }
-//    
-//    @After
-//    public void tearDown() {
-//        try {
-//            TEST_EMPLOYEE_DAO.deleteEmployeeById(TEST_EMPLOYEE.getIdEmployee());
-//        } catch (DAOException exception) {
-//            Logger.getLogger(TestEmployeeDAO.class.getName()).log(Level.SEVERE, null, exception);
-//        }
-//    }
-    
+        
     @Test
     public void testSuccessRegisterEmployee() {
         int idEmployee = 0;
@@ -71,7 +48,6 @@ public class TestEmployeeDAO {
         initializeValidNullFieldsTestEmployee();        
         try {
             idEmployee = TEST_EMPLOYEE_DAO.registerEmployee(TEST_EMPLOYEE);
-            TEST_EMPLOYEE_DAO.deleteEmployeeById(idEmployee);
             TEST_EMPLOYEE_DAO.deleteEmployeeById(idEmployee);
         } catch (DAOException exception) {
             Logger.getLogger(TestEmployeeDAO.class.getName()).log(Level.SEVERE, null, exception);
@@ -117,7 +93,8 @@ public class TestEmployeeDAO {
         TEST_EMPLOYEE.setMaternalSurname("Contreras");
         TEST_EMPLOYEE.setPosition("Entrenador");
         TEST_EMPLOYEE.setEmail("axlvaldez74@gmail.com");
-        TEST_EMPLOYEE.setPhoneNumber("2281273467");        
+        TEST_EMPLOYEE.setPhoneNumber("2281273467");
+        TEST_EMPLOYEE.setPassword("papoi123");
     }
     
     private void initializeInvalidCharactersTestEmployee() {
@@ -126,7 +103,8 @@ public class TestEmployeeDAO {
         TEST_EMPLOYEE.setMaternalSurname("@@@@@");
         TEST_EMPLOYEE.setPosition("Entrenador");
         TEST_EMPLOYEE.setEmail("!!!!!!");
-        TEST_EMPLOYEE.setPhoneNumber("2281273467");        
+        TEST_EMPLOYEE.setPhoneNumber("2281273467"); 
+        TEST_EMPLOYEE.setPassword("------");
     }    
     
     private void initializeValidNullFieldsTestEmployee() {
@@ -135,7 +113,8 @@ public class TestEmployeeDAO {
         TEST_EMPLOYEE.setMaternalSurname("");
         TEST_EMPLOYEE.setPosition("Entrenador");
         TEST_EMPLOYEE.setEmail("axlvaldez74@gmail.com");
-        TEST_EMPLOYEE.setPhoneNumber("2281273467");        
+        TEST_EMPLOYEE.setPhoneNumber("2281273467");   
+        TEST_EMPLOYEE.setPassword("papoi123");
     }    
 
     private void initializeInvalidNullFieldsTestEmployee() {
@@ -144,7 +123,8 @@ public class TestEmployeeDAO {
         TEST_EMPLOYEE.setMaternalSurname("");
         TEST_EMPLOYEE.setPosition("Entrenador");
         TEST_EMPLOYEE.setEmail("axlvaldez74@gmail.com");
-        TEST_EMPLOYEE.setPhoneNumber("");        
+        TEST_EMPLOYEE.setPhoneNumber("");    
+        TEST_EMPLOYEE.setPassword("");
     }  
     
     private void initializeAuxTestEmployee() {
@@ -153,9 +133,8 @@ public class TestEmployeeDAO {
         AUX_TEST_EMPLOYEE.setMaternalSurname("Contreras");
         AUX_TEST_EMPLOYEE.setPosition("Entrenador");
         AUX_TEST_EMPLOYEE.setEmail("axlvaldez74@gmail.com");
-        AUX_TEST_EMPLOYEE.setPhoneNumber("2281273467");        
-    }    
-    
-    
-    
+        AUX_TEST_EMPLOYEE.setPhoneNumber("2281273467");     
+        AUX_TEST_EMPLOYEE.setPassword("papoi123");
+    }       
+        
 }

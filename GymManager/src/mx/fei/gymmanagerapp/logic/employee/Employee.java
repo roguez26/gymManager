@@ -12,6 +12,7 @@ public class Employee {
     private String position;
     private String phoneNumber;
     private String eMail;    
+    private String password;
     
     public Employee() {
     }
@@ -88,6 +89,14 @@ public class Employee {
         this.eMail = eMail;
     }
     
+    public String getPassword() {
+        return this.password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -99,12 +108,13 @@ public class Employee {
                 Objects.equals(maternalSurname, employee.maternalSurname) &&
                 Objects.equals(position, employee.position) &&
                 Objects.equals(phoneNumber, employee.phoneNumber) &&
-                Objects.equals(eMail, employee.eMail);
+                Objects.equals(eMail, employee.eMail) &&
+                Objects.equals(password, employee.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idEmployee, name, paternalSurname, maternalSurname, position, phoneNumber, eMail);
+        return Objects.hash(idEmployee, name, paternalSurname, maternalSurname, position, phoneNumber, eMail, password);
     }    
     
     @Override

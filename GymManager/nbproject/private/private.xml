@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/axel_/OneDrive/Escritorio/ProyectoGimnasioProcesos/GymManager/src/mx/fei/gymmanagerapp/logic/employee/Employee.java</file>
-            <file>file:/C:/Users/axel_/OneDrive/Escritorio/ProyectoGimnasioProcesos/GymManager/src/mx/fei/gymmanagerapp/logic/employee/IEmployee.java</file>
-            <file>file:/C:/Users/axel_/OneDrive/Escritorio/ProyectoGimnasioProcesos/GymManager/test/unit/test/EmployeeDAO/TestEmployeeDAO.java</file>
+            <file>file:/C:/Users/axel_/OneDrive/Escritorio/GymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/logic/employee/Employee.java</file>
+            <file>file:/C:/Users/axel_/OneDrive/Escritorio/GymManager/gymManager/GymManager/test/unit/test/EmployeeDAO/TestEmployeeDAO.java</file>
+            <file>file:/C:/Users/axel_/OneDrive/Escritorio/GymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/logic/employee/EmployeeDAO.java</file>
+            <file>file:/C:/Users/axel_/OneDrive/Escritorio/GymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/gui/controllers/EmployeeManagementController.java</file>
+            <file>file:/C:/Users/axel_/OneDrive/Escritorio/GymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/gui/controllers/EmployeeRegisterController.java</file>
+            <file>file:/C:/Users/axel_/OneDrive/Escritorio/GymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/gui/views/EmployeeManagement.fxml</file>
         </group>
     </open-files>
 </project-private>

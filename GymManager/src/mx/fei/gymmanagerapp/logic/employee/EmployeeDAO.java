@@ -23,7 +23,7 @@ public class EmployeeDAO implements IEmployee {
         } catch (DAOException exception) {
             throw new DAOException("No fue posible realizar la validacion, intente registrar mas tarde.", Status.ERROR);
         }
-        if (idEmployee > 0) {
+        if (idEmployee != employee.getIdEmployee() && idEmployee > 0) {
             throw new DAOException("El correo ya se encuentra registrado", Status.WARNING);
         }
         return false;
@@ -148,7 +148,7 @@ public class EmployeeDAO implements IEmployee {
     private int insertEmployeeTransaction(Employee employee) throws DAOException {
         int result = -1;
         String statement = "INSERT INTO empleado(nombre, apellidopaterno,"
-                + " apellidomaterno, puesto, telefono, correo) VALUES(?, ?, ?, ?, ?, ?);";
+                + " apellidomaterno, puesto, telefono, correo, contrasenia) VALUES(?, ?, ?, ?, ?, ?, ?);";
         DatabaseManager databaseManager = new DatabaseManager();
         
         try (Connection connection = databaseManager.getConnection();
@@ -159,6 +159,7 @@ public class EmployeeDAO implements IEmployee {
             preparedStatement.setString(4, employee.getPosition());
             preparedStatement.setString(5, employee.getPhoneNumber());
             preparedStatement.setString(6, employee.getEmail());
+            preparedStatement.setString(7, employee.getPassword());
             preparedStatement.executeUpdate();            
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                 if (resultSet.next()) {
@@ -175,7 +176,7 @@ public class EmployeeDAO implements IEmployee {
     private int updateEmployeeTransaction(Employee newEmployeeInformation) throws DAOException {
         int result = -1;
         String statement = "UPDATE empleado SET nombre = ?, apellidopaterno = ?,"
-                + " apellidomaterno = ?, puesto = ?, telefono = ?, correo = ? WHERE idEmpleado = ?";
+                + " apellidomaterno = ?, puesto = ?, telefono = ?, correo = ?, contrasenia = ? WHERE idEmpleado = ?";
         DatabaseManager databaseManager = new DatabaseManager();
         
         try (Connection connection = databaseManager.getConnection();
@@ -186,7 +187,8 @@ public class EmployeeDAO implements IEmployee {
             preparedStatement.setString(4, newEmployeeInformation.getPosition());
             preparedStatement.setString(5, newEmployeeInformation.getPhoneNumber());
             preparedStatement.setString(6, newEmployeeInformation.getEmail());
-            preparedStatement.setInt(7, newEmployeeInformation.getIdEmployee());
+            preparedStatement.setString(7, newEmployeeInformation.getPassword());
+            preparedStatement.setInt(8, newEmployeeInformation.getIdEmployee());
             result = preparedStatement.executeUpdate();
         } catch (SQLException exception) {
             LOG.log(Level.SEVERE, exception.getMessage(), exception);
@@ -205,6 +207,7 @@ public class EmployeeDAO implements IEmployee {
         employee.setPosition(resultSet.getString("puesto"));
         employee.setPhoneNumber(resultSet.getString("telefono"));
         employee.setEmail(resultSet.getString("correo"));
+        employee.setPassword(resultSet.getString("contrasenia"));
         return employee;
     }    
     
