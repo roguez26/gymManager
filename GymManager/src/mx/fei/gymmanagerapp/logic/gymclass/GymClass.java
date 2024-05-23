@@ -29,6 +29,10 @@ public class GymClass {
         this.coach = coach;
     }
     
+    public String getCoachName() {
+        return coach != null ? coach.toString() : "Nameless";
+    }
+    
     public int getIdGymClass() {
         return idGymClass;
     }

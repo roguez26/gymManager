@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import mx.fei.gymmanagerapp.dataaccess.DatabaseManager;
 import mx.fei.gymmanagerapp.logic.implementations.DAOException;
 import mx.fei.gymmanagerapp.logic.implementations.Status;
-import mx.fei.gymmanagerapp.logic.member.Member;
+//import mx.fei.gymmanagerapp.logic.member.Member;
 
 public class EmployeeDAO implements IEmployee {
     
@@ -78,7 +78,7 @@ public class EmployeeDAO implements IEmployee {
         int result = 0;
        
         if (!checkEmailDuplication(employee)) {
-            employee.encryptPassword(encryptPassword(employee.getPassword()));
+            employee.encryptPassword(employee.getPassword());
             result = insertEmployeeTransaction(employee);
         }
         return result;

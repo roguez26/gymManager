@@ -9,7 +9,7 @@ public interface IEmployee {
     public int registerEmployee(Employee employee) throws DAOException;
     public int updateEmployee(Employee employee) throws DAOException;
     public int deleteEmployeeById(int idEmployee) throws DAOException;
-    public Employee getEmployeeByEmail(Employee employee) throws DAOException;
+    public Employee getEmployeeByEmail(String email) throws DAOException;
     public Employee getEmployeeById(int idEmployee) throws DAOException;
     public ArrayList<Employee> getEmployees() throws DAOException;     
     

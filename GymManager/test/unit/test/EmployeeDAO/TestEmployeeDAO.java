@@ -39,7 +39,6 @@ public class TestEmployeeDAO {
         try {
             idEmployee = TEST_EMPLOYEE_DAO.registerEmployee(TEST_EMPLOYEE);
             TEST_EMPLOYEE_DAO.deleteEmployeeById(idEmployee);
-            TEST_EMPLOYEE_DAO.deleteEmployeeById(idEmployee);
         } catch (DAOException exception) {
             Logger.getLogger(TestEmployeeDAO.class.getName()).log(Level.SEVERE, null, exception);
         }
@@ -52,7 +51,6 @@ public class TestEmployeeDAO {
         initializeInvalidCharactersTestEmployee();
         try {
             idEmployee = TEST_EMPLOYEE_DAO.registerEmployee(TEST_EMPLOYEE);
-            TEST_EMPLOYEE_DAO.deleteEmployeeById(idEmployee);
             TEST_EMPLOYEE_DAO.deleteEmployeeById(idEmployee);
         } catch (DAOException exception) {
             Logger.getLogger(TestEmployeeDAO.class.getName()).log(Level.SEVERE, null, exception);
@@ -80,7 +78,6 @@ public class TestEmployeeDAO {
         try {
             idEmployee = TEST_EMPLOYEE_DAO.registerEmployee(TEST_EMPLOYEE);
             TEST_EMPLOYEE_DAO.deleteEmployeeById(idEmployee);
-            TEST_EMPLOYEE_DAO.deleteEmployeeById(idEmployee);
         } catch (DAOException exception) {
             Logger.getLogger(TestEmployeeDAO.class.getName()).log(Level.SEVERE, null, exception);
         }
@@ -104,6 +101,132 @@ public class TestEmployeeDAO {
         }
         Assert.assertTrue(idAuxEmployee > 0);
     }
+    
+    @Test
+    public void testSuccessUpdateEmployee() {
+        int idTestEmployee = 0;
+        int rowsAffected = 0;
+        initializeSuccesTestEmployee();
+        Employee employee = new Employee();
+        employee.setName("Isaac");
+        employee.setPaternalSurname("Avila");
+        employee.setMaternalSurname("Tlaxcalteco");
+        employee.setPosition("Entrenador");
+        employee.setEmail("iat17@gmail.com");
+        employee.setPhoneNumber("2281278263");
+        employee.setPassword("Papoi123!");        
+        try {
+            idTestEmployee = TEST_EMPLOYEE_DAO.registerEmployee(TEST_EMPLOYEE);
+            TEST_EMPLOYEE.setIdEmployee(idTestEmployee);
+            employee.setIdEmployee(idTestEmployee);
+            rowsAffected = TEST_EMPLOYEE_DAO.updateEmployee(employee);
+            TEST_EMPLOYEE_DAO.deleteEmployeeById(idTestEmployee);
+        } catch(DAOException exception) {
+            Logger.getLogger(TestEmployeeDAO.class.getName()).log(Level.SEVERE, null, exception);
+        }
+        Assert.assertTrue(rowsAffected > 0);
+        
+    }
+    
+    @Test
+    public void testEmailAlreadyRegisteredUpdateEmployee() {
+        int idTestEmployee = 0;
+        int rowsAffected = 0;
+        initializeSuccesTestEmployee();
+        Employee employee = new Employee();
+        employee.setName("Isaac");
+        employee.setPaternalSurname("Avila");
+        employee.setMaternalSurname("Tlaxcalteco");
+        employee.setPosition("Entrenador");
+        employee.setEmail("iat17@gmail.com");
+        employee.setPhoneNumber("2281278263");
+        employee.setPassword("Papoi123!");        
+        try {
+            idTestEmployee = TEST_EMPLOYEE_DAO.registerEmployee(TEST_EMPLOYEE);
+            TEST_EMPLOYEE.setIdEmployee(idTestEmployee);
+            employee.setIdEmployee(idTestEmployee);
+            rowsAffected = TEST_EMPLOYEE_DAO.updateEmployee(employee);
+            TEST_EMPLOYEE_DAO.deleteEmployeeById(idTestEmployee);
+        } catch(DAOException exception) {
+            Logger.getLogger(TestEmployeeDAO.class.getName()).log(Level.SEVERE, null, exception);
+        }
+        Assert.assertTrue(rowsAffected > 0);        
+    }  
+    
+    @Test
+    public void testInvalidCharactersUpdateEmployee() {
+        int idTestEmployee = 0;
+        int rowsAffected = 0;
+        initializeSuccesTestEmployee();
+        Employee employee = new Employee();
+        employee.setName("*****");
+        employee.setPaternalSurname("+++++");
+        employee.setMaternalSurname("@@@@@");
+        employee.setPosition("Entrenador");
+        employee.setEmail("!!!!!!");
+        employee.setPhoneNumber("2281273467");
+        employee.setPassword("Papoi123!");        
+        try {
+            idTestEmployee = TEST_EMPLOYEE_DAO.registerEmployee(TEST_EMPLOYEE);
+            TEST_EMPLOYEE.setIdEmployee(idTestEmployee);
+            employee.setIdEmployee(idTestEmployee);
+            rowsAffected = TEST_EMPLOYEE_DAO.updateEmployee(employee);
+            TEST_EMPLOYEE_DAO.deleteEmployeeById(idTestEmployee);
+        } catch(DAOException exception) {
+            Logger.getLogger(TestEmployeeDAO.class.getName()).log(Level.SEVERE, null, exception);
+        }
+        Assert.assertTrue(rowsAffected > 0);        
+    }     
+    
+    @Test
+    public void testValidNullFieldsUpdateEmployee() {
+        int idTestEmployee = 0;
+        int rowsAffected = 0;
+        initializeSuccesTestEmployee();
+        Employee employee = new Employee();
+        employee.setName("Isaac");
+        employee.setPaternalSurname("Avila");
+        employee.setMaternalSurname("");
+        employee.setPosition("Entrenador");
+        employee.setEmail("iat17@gmail.com");
+        employee.setPhoneNumber("2281278263");
+        employee.setPassword("Papoi123!");        
+        try {
+            idTestEmployee = TEST_EMPLOYEE_DAO.registerEmployee(TEST_EMPLOYEE);
+            TEST_EMPLOYEE.setIdEmployee(idTestEmployee);
+            employee.setIdEmployee(idTestEmployee);
+            rowsAffected = TEST_EMPLOYEE_DAO.updateEmployee(employee);
+            TEST_EMPLOYEE_DAO.deleteEmployeeById(idTestEmployee);
+        } catch(DAOException exception) {
+            Logger.getLogger(TestEmployeeDAO.class.getName()).log(Level.SEVERE, null, exception);
+        }
+        Assert.assertTrue(rowsAffected > 0);        
+    } 
+    
+    @Test
+    public void testInvalidNullFieldsUpdateEmployee() {
+        int idTestEmployee = 0;
+        int rowsAffected = 0;
+        initializeSuccesTestEmployee();
+        Employee employee = new Employee();
+        employee.setName("");
+        employee.setPaternalSurname("");
+        employee.setMaternalSurname("");
+        employee.setPosition("Entrenador");
+        employee.setEmail("iat17@gmail.com");
+        employee.setPhoneNumber("2281278263");
+        employee.setPassword("Papoi123!");        
+        try {
+            idTestEmployee = TEST_EMPLOYEE_DAO.registerEmployee(TEST_EMPLOYEE);
+            TEST_EMPLOYEE.setIdEmployee(idTestEmployee);
+            employee.setIdEmployee(idTestEmployee);
+            rowsAffected = TEST_EMPLOYEE_DAO.updateEmployee(employee);
+            TEST_EMPLOYEE_DAO.deleteEmployeeById(idTestEmployee);
+        } catch(DAOException exception) {
+            Logger.getLogger(TestEmployeeDAO.class.getName()).log(Level.SEVERE, null, exception);
+        }
+        Assert.assertTrue(rowsAffected > 0);        
+    }     
 
     private void initializeSuccesTestEmployee() {
         TEST_EMPLOYEE.setName("Axel");
@@ -122,7 +245,7 @@ public class TestEmployeeDAO {
         TEST_EMPLOYEE.setPosition("Entrenador");
         TEST_EMPLOYEE.setEmail("!!!!!!");
         TEST_EMPLOYEE.setPhoneNumber("2281273467");
-        TEST_EMPLOYEE.setPassword("------");
+        TEST_EMPLOYEE.setPassword("Papoi123!");
     }
 
     private void initializeValidNullFieldsTestEmployee() {
@@ -132,7 +255,7 @@ public class TestEmployeeDAO {
         TEST_EMPLOYEE.setPosition("Entrenador");
         TEST_EMPLOYEE.setEmail("axlvaldez74@gmail.com");
         TEST_EMPLOYEE.setPhoneNumber("2281273467");
-        TEST_EMPLOYEE.setPassword("papoi123");
+        TEST_EMPLOYEE.setPassword("Papoi123!");
     }
 
     private void initializeInvalidNullFieldsTestEmployee() {
@@ -142,7 +265,7 @@ public class TestEmployeeDAO {
         TEST_EMPLOYEE.setPosition("Entrenador");
         TEST_EMPLOYEE.setEmail("axlvaldez74@gmail.com");
         TEST_EMPLOYEE.setPhoneNumber("");
-        TEST_EMPLOYEE.setPassword("");
+        TEST_EMPLOYEE.setPassword("Papoi123!");
     }
 
     private void initializeAuxTestEmployee() {
@@ -152,7 +275,7 @@ public class TestEmployeeDAO {
         AUX_TEST_EMPLOYEE.setPosition("Entrenador");
         AUX_TEST_EMPLOYEE.setEmail("axlvaldez74@gmail.com");
         AUX_TEST_EMPLOYEE.setPhoneNumber("2281273467");
-        AUX_TEST_EMPLOYEE.setPassword("papoi123");
+        AUX_TEST_EMPLOYEE.setPassword("Papoi123!");
     }
 
 }
