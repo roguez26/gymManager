@@ -3,10 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/test/unit/test/GymClassDAO/TestGymClassDAO.java</file>
+            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/logic/employee/EmployeeDAO.java</file>
+            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/dataaccess/DatabaseManager.java</file>
+            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/main/MainApp.java</file>
+            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/test/unit/test/EmployeeDAO/TestEmployeeDAO.java</file>
+            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/logic/employee/Employee.java</file>
+            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/logic/gymclass/GymClass.java</file>
+            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/logic/member/Member.java</file>
+=======
             <file>file:/C:/Users/axel_/OneDrive/Escritorio/GymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/logic/employee/Employee.java</file>
             <file>file:/C:/Users/axel_/OneDrive/Escritorio/GymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/logic/gymclass/GymClassDAO.java</file>
             <file>file:/C:/Users/axel_/OneDrive/Escritorio/GymManager/gymManager/GymManager/test/unit/test/EmployeeDAO/TestEmployeeDAO.java</file>
             <file>file:/C:/Users/axel_/OneDrive/Escritorio/GymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/logic/employee/EmployeeDAO.java</file>
+>>>>>>> af9588c3c0508348ca8f699c0a523e1fa51e80a6
         </group>
     </open-files>
 </project-private>

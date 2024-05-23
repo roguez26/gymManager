@@ -270,4 +270,8 @@ public class EmployeeDAO implements IEmployee {
         return encryptedPassword;
     }
     
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> af9588c3c0508348ca8f699c0a523e1fa51e80a6

@@ -21,6 +21,7 @@ public class MemberDAO implements IMember {
 
     private static final Logger LOG = Logger.getLogger(MemberDAO.class.getName());
     
+    @Override
     public Member authenticateMember(String email, String password) throws DAOException {
         Member memberForAuthenticate = new Member();
 
@@ -105,8 +106,8 @@ public class MemberDAO implements IMember {
         
         encriptedPasswordForUpdate = encryptPassword(passwordForUpdate);
         
-        if (oldMemberInformation.getPassword().equals(encriptedPasswordForUpdate)) {
-            newMemberInformation.setPassword(encriptedPasswordForUpdate);
+        if (!oldMemberInformation.getPassword().equals(encriptedPasswordForUpdate)) {
+            newMemberInformation.encryptPassword(encriptedPasswordForUpdate);
         }
         
         if (!checkEmailDuplication(newMemberInformation)) {
@@ -126,6 +127,8 @@ public class MemberDAO implements IMember {
             preparedStatement.setString(3, newMemberInformation.getMaternalSurname());
             preparedStatement.setString(4, newMemberInformation.getPhoneNumber());
             preparedStatement.setString(5, newMemberInformation.getEmail());
+            preparedStatement.setString(6, newMemberInformation.getPassword());
+            preparedStatement.setInt(7, newMemberInformation.getIdMember());
             result = preparedStatement.executeUpdate();
         } catch (SQLException exception) {
             LOG.log(Level.SEVERE, exception.getMessage(), exception);

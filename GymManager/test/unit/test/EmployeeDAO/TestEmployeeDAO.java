@@ -101,6 +101,8 @@ public class TestEmployeeDAO {
         }
         Assert.assertTrue(idAuxEmployee > 0);
     }
+<<<<<<< HEAD
+=======
     
     @Test
     public void testSuccessUpdateEmployee() {
@@ -227,6 +229,7 @@ public class TestEmployeeDAO {
         }
         Assert.assertTrue(rowsAffected > 0);        
     }     
+>>>>>>> af9588c3c0508348ca8f699c0a523e1fa51e80a6
 
     private void initializeSuccesTestEmployee() {
         TEST_EMPLOYEE.setName("Axel");
@@ -245,7 +248,11 @@ public class TestEmployeeDAO {
         TEST_EMPLOYEE.setPosition("Entrenador");
         TEST_EMPLOYEE.setEmail("!!!!!!");
         TEST_EMPLOYEE.setPhoneNumber("2281273467");
+<<<<<<< HEAD
+        TEST_EMPLOYEE.setPassword("------");
+=======
         TEST_EMPLOYEE.setPassword("Papoi123!");
+>>>>>>> af9588c3c0508348ca8f699c0a523e1fa51e80a6
     }
 
     private void initializeValidNullFieldsTestEmployee() {
@@ -255,7 +262,11 @@ public class TestEmployeeDAO {
         TEST_EMPLOYEE.setPosition("Entrenador");
         TEST_EMPLOYEE.setEmail("axlvaldez74@gmail.com");
         TEST_EMPLOYEE.setPhoneNumber("2281273467");
+<<<<<<< HEAD
+        TEST_EMPLOYEE.setPassword("papoi123");
+=======
         TEST_EMPLOYEE.setPassword("Papoi123!");
+>>>>>>> af9588c3c0508348ca8f699c0a523e1fa51e80a6
     }
 
     private void initializeInvalidNullFieldsTestEmployee() {
@@ -265,7 +276,11 @@ public class TestEmployeeDAO {
         TEST_EMPLOYEE.setPosition("Entrenador");
         TEST_EMPLOYEE.setEmail("axlvaldez74@gmail.com");
         TEST_EMPLOYEE.setPhoneNumber("");
+<<<<<<< HEAD
+        TEST_EMPLOYEE.setPassword("");
+=======
         TEST_EMPLOYEE.setPassword("Papoi123!");
+>>>>>>> af9588c3c0508348ca8f699c0a523e1fa51e80a6
     }
 
     private void initializeAuxTestEmployee() {
@@ -275,7 +290,11 @@ public class TestEmployeeDAO {
         AUX_TEST_EMPLOYEE.setPosition("Entrenador");
         AUX_TEST_EMPLOYEE.setEmail("axlvaldez74@gmail.com");
         AUX_TEST_EMPLOYEE.setPhoneNumber("2281273467");
+<<<<<<< HEAD
+        AUX_TEST_EMPLOYEE.setPassword("papoi123");
+=======
         AUX_TEST_EMPLOYEE.setPassword("Papoi123!");
+>>>>>>> af9588c3c0508348ca8f699c0a523e1fa51e80a6
     }
 
 }
