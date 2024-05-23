@@ -1,4 +1,4 @@
-package unit.test.EmployeeDAO;
+package unit.test.GymClassDAO;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -169,6 +169,8 @@ public class TestGymClassDAO {
     @Test
     public void testUpdateGymClassSucces() {
         int result = 0;
+        int idGymClass;
+        idGymClass = GYMCLASS_FOR_TESTING.getIdGymClass();
         GYMCLASS_FOR_TESTING.setSchedule("12:00-14:00");
         GYMCLASS_FOR_TESTING.setDays("Lunes, Jueves");
         GYMCLASS_FOR_TESTING.setCapacity(40);
@@ -176,10 +178,10 @@ public class TestGymClassDAO {
         
         try {
             result = GYMCLASE_DAO.updateGymClass(GYMCLASS_FOR_TESTING);
-            GYMCLASS_FOR_TESTING.setIdGymClass(result);
         } catch (DAOException exception) {
             Logger.getLogger(TestGymClassDAO.class.getName()).log(Level.SEVERE, null, exception);
-        } 
+        }
+        GYMCLASS_FOR_TESTING.setIdGymClass(idGymClass);
         assertTrue(result > 0);                
     }
     
@@ -229,38 +231,38 @@ public class TestGymClassDAO {
     
     @Test
     public void testgetGymClassByIdGymClass() {
-        int result = 0; 
+        int result; 
         GymClass gymClass = new GymClass();
-        int idGymClass = 0;     
+        int idGymClass;
         idGymClass = AUX_GYMCLASS.getIdGymClass();
         
         try {
-            gymClass = GYMCLASE_DAO.getGymClassByIdGymClass(idGymClass);
-            result = gymClass.getIdGymClass();
+            gymClass = GYMCLASE_DAO.getGymClassByIdGymClass(idGymClass);            
         } catch (DAOException exception) {
             Logger.getLogger(TestGymClassDAO.class.getName()).log(Level.SEVERE, null, exception);
-        } 
+        }
+        result = gymClass.getIdGymClass();
         assertTrue(result > 0);
     }
     
     @Test
     public void testgetGymClassByName() {
-        int result = 0; 
+        int result;
         GymClass gymClass = new GymClass();
         String name;     
         name = AUX_GYMCLASS.getName();        
         try {
-            gymClass = GYMCLASE_DAO.getGymClassByName(name);
-            result = gymClass.getIdGymClass();
+            gymClass = GYMCLASE_DAO.getGymClassByName(name);            
         } catch (DAOException exception) {
             Logger.getLogger(TestGymClassDAO.class.getName()).log(Level.SEVERE, null, exception);
-        } 
+        }
+        result = gymClass.getIdGymClass();
         assertTrue(result > 0);
     }
     
     @Test
     public void testgetGymClasses() {
-        int result = 0;
+        int result;
         ArrayList<GymClass> gymClasses = new ArrayList<>();
         try {
             gymClasses = GYMCLASE_DAO.getGymClasses();
@@ -289,7 +291,7 @@ public class TestGymClassDAO {
     @Test
     public void testDeleteGymCassFailByNonExistenceGymClass() {
         int result = 0;
-        int idAuxGymClass = 0;
+        int idAuxGymClass;
         
         idAuxGymClass = AUX_GYMCLASS.getIdGymClass();
         AUX_GYMCLASS.setIdGymClass(0);        
@@ -313,7 +315,5 @@ public class TestGymClassDAO {
         } catch (DAOException exception) {
             Logger.getLogger(TestGymClassDAO.class.getName()).log(Level.SEVERE, null, exception);
         }
-    }
-    
-    
+    } 
 }
