@@ -2,13 +2,10 @@ package unit.test.MemberDAO;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.ArrayList;
 import mx.fei.gymmanagerapp.logic.implementations.DAOException;
 import mx.fei.gymmanagerapp.logic.member.Member;
 import mx.fei.gymmanagerapp.logic.member.MemberDAO;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 public class TestMemberDAO {
@@ -17,25 +14,6 @@ public class TestMemberDAO {
     private static final Member TEST_MEMBER = new Member();
     private static final Member AUX_TEST_MEMBER = new Member();
 
-//    @Before
-//    public void setUp() {
-//        try {
-//            initializeSuccesTestMember();
-//            int idTestMember = TEST_MEMBER_DAO.registerMember(TEST_MEMBER);
-//            TEST_MEMBER.setIdMember(idTestMember);    
-//        } catch (DAOException exception) {
-//            Logger.getLogger(TestMemberDAO.class.getName()).log(Level.SEVERE, null, exception);
-//        }
-//    }
-//    
-//    @After
-//    public void tearDown() {
-//        try {
-//            TEST_MEMBER_DAO.deleteMemberById(TEST_MEMBER.getIdMember());
-//        } catch (DAOException exception) {
-//            Logger.getLogger(TestMemberDAO.class.getName()).log(Level.SEVERE, null, exception);
-//        }
-//    }
     @Test
     public void testSuccessRegisterMember() {
         int idMember = 0;

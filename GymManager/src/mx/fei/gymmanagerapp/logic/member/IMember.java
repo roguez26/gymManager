@@ -16,5 +16,6 @@ public interface IMember {
     public Member getMemberByEmail(String email) throws DAOException;
     public Member getMemberById(int idMember) throws DAOException;
     public ArrayList<Member> getMembers() throws DAOException; 
+    public Member authenticateMember(String email, String password) throws DAOException;
     
 }

@@ -321,6 +321,7 @@ public class GymClassDAO implements IGymClass {
         try {
             gymClass.setIdGymClass(resultSet.getInt("idClase"));
             gymClass.setName(resultSet.getString("nombre"));
+            gymClass.setDescription(resultSet.getString("descripcion"));
             gymClass.setSchedule(resultSet.getString("horario"));
             gymClass.setDays(resultSet.getString("dias"));
             gymClass.setCapacity(resultSet.getInt("cupo"));
