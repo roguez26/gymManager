@@ -50,7 +50,7 @@ public class GymClassDAO implements IGymClass {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String statement = "INSERT INTO Clase (idEmpleado,"
+        String statement = "INSERT INTO Clase (Empleado_idEmpleado,"
         + " nombre, descripcion, horario, dias, cupo)"
         + " VALUES (?,?,?,?,?,?)";
         int result = -1;
@@ -227,7 +227,7 @@ public class GymClassDAO implements IGymClass {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String statement = "UPDATE Clase SET idEmpleado = ?,"
+        String statement = "UPDATE Clase SET Empleado_idEmpleado = ?,"
         + " nombre = ?, descripcion = ?, horario = ?, dias = ?,"
         + " cupo = ? WHERE idClase = ?";
         int rowsAffected = -1;
@@ -325,7 +325,7 @@ public class GymClassDAO implements IGymClass {
             gymClass.setSchedule(resultSet.getString("horario"));
             gymClass.setDays(resultSet.getString("dias"));
             gymClass.setCapacity(resultSet.getInt("cupo"));
-            gymClass.setCoach(employeeDAO.getEmployeeById(resultSet.getInt("idEmpleado")));           
+            gymClass.setCoach(employeeDAO.getEmployeeById(resultSet.getInt("Empleado_idEmpleado")));           
         } catch (SQLException exception) {
             Logger.getLogger(GymClassDAO.class.getName()).log(Level.SEVERE, null, exception);
         }                

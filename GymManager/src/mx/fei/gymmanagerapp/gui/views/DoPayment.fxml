@@ -5,18 +5,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.fei.gymmanagerapp.gui.controllers.DoPaymentController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" styleClass="vbox-container" stylesheets="@../stylesheets/vboxBackground.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.fei.gymmanagerapp.gui.controllers.DoPaymentController">
    <children>
       <HBox alignment="CENTER" prefHeight="146.0" prefWidth="360.0">
          <children>
-            <Label text="Realizar pago" />
+            <Label stylesheets="@../stylesheets/titleLabel.css" text="Realizar pago" />
          </children>
       </HBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
          <children>
-            <Button fx:id="paymentIsDoneButton" mnemonicParsing="false" onAction="#paymentIsDoneButtonIsPressed" prefHeight="26.0" prefWidth="131.0" text="El pago se realizó" />
-            <Button fx:id="paymentIsNotDoneButton" mnemonicParsing="false" onAction="#paymentIsNotDoneButtonIsPressed" text="El pago no se realizó" />
+            <Button fx:id="paymentIsDoneButton" mnemonicParsing="false" onAction="#paymentIsDoneButtonIsPressed" prefHeight="26.0" prefWidth="131.0" stylesheets="@../stylesheets/buttonGray.css" text="El pago se realizó" />
+            <Button fx:id="paymentIsNotDoneButton" mnemonicParsing="false" onAction="#paymentIsNotDoneButtonIsPressed" prefHeight="26.0" prefWidth="129.0" stylesheets="@../stylesheets/buttonGray.css" text="El pago no se realizó" />
          </children>
       </VBox>
    </children>

@@ -20,12 +20,27 @@ public class TestMemberDAO {
         initializeSuccesTestMember();
         try {
             idMember = TEST_MEMBER_DAO.registerMember(TEST_MEMBER);
-            //TEST_MEMBER_DAO.deleteMemberById(idMember);
+            TEST_MEMBER_DAO.deleteMemberById(idMember);
         } catch (DAOException exception) {
             Logger.getLogger(TestMemberDAO.class.getName()).log(Level.SEVERE, null, exception);
         }
         System.out.println(idMember);
         Assert.assertTrue(idMember > 0);
+    }
+    
+    @Test
+    public void testDeleteMember() {
+        int rowsAffected = 0;
+        int idMember;
+        initializeSuccesTestMember();
+        try {
+            idMember = TEST_MEMBER_DAO.registerMember(TEST_MEMBER);
+            rowsAffected = TEST_MEMBER_DAO.deleteMemberById(idMember);
+        } catch (DAOException exception) {
+            Logger.getLogger(TestMemberDAO.class.getName()).log(Level.SEVERE, null, exception);
+        }
+        System.out.println(rowsAffected);
+        Assert.assertTrue(rowsAffected > 0);
     }
 
     @Test
