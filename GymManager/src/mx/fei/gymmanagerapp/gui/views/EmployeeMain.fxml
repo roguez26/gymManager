@@ -6,29 +6,28 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.fei.gymmanagerapp.gui.controllers.EmployeeMainController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" styleClass="vbox-container" stylesheets="@../stylesheets/vboxBackground.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.fei.gymmanagerapp.gui.controllers.EmployeeMainController">
    <children>
-      <HBox alignment="CENTER" prefHeight="745.0" prefWidth="800.0">
+      <HBox alignment="CENTER" prefHeight="745.0" prefWidth="800.0" stylesheets="@../stylesheets/titleLabel.css">
          <children>
-            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="534.0" prefWidth="260.0">
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="534.0" prefWidth="282.0">
                <children>
-                  <HBox alignment="TOP_CENTER" prefHeight="486.0" prefWidth="260.0">
+                  <HBox alignment="TOP_CENTER" prefHeight="486.0" prefWidth="305.0">
                      <children>
-                        <Label text="Bienvenido a GymManager" />
+                        <Label stylesheets="@../stylesheets/titleLabel.css" text="Bienvenido a GymManager" />
                      </children>
                   </HBox>
-                  <Button fx:id="closeSessionButton" mnemonicParsing="false" onAction="#closeSessionButtonIsPressed" text="Cerrar sesión" />
+                  <Button fx:id="closeSessionButton" mnemonicParsing="false" onAction="#closeSessionButtonIsPressed" stylesheets="@../stylesheets/buttonRed.css" text="Cerrar sesión" />
                </children>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="700.0" prefWidth="541.0" spacing="40.0">
+            <VBox alignment="CENTER" prefHeight="700.0" prefWidth="460.0" spacing="40.0">
                <children>
-                  <Button fx:id="membersButton" mnemonicParsing="false" onAction="#membersButtonIsPressed" prefHeight="90.0" prefWidth="150.0" text="Miembros" />
-                  <Button fx:id="classesButton" mnemonicParsing="false" onAction="#classesButtonIsPressed" prefHeight="90.0" prefWidth="150.0" text="Clases" />
-                  <Button fx:id="employeesButton" mnemonicParsing="false" onAction="#employeesButtonIsPressed" prefHeight="90.0" prefWidth="150.0" text="Empleados" />
+                  <Button fx:id="membersButton" mnemonicParsing="false" onAction="#membersButtonIsPressed" prefHeight="90.0" prefWidth="150.0" stylesheets="@../stylesheets/buttonBlue.css" text="Miembros" />
+                  <Button fx:id="classesButton" mnemonicParsing="false" onAction="#classesButtonIsPressed" prefHeight="90.0" prefWidth="150.0" stylesheets="@../stylesheets/buttonBlue.css" text="Clases" />
+                  <Button fx:id="employeesButton" mnemonicParsing="false" onAction="#employeesButtonIsPressed" prefHeight="90.0" prefWidth="150.0" stylesheets="@../stylesheets/buttonBlue.css" text="Empleados" />
                </children>
             </VBox>
          </children>

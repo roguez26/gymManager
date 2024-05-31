@@ -16,6 +16,7 @@ public class EmployeeDAO implements IEmployee {
     
     private static final Logger LOG = Logger.getLogger(EmployeeDAO.class.getName());
     
+    @Override
     public Employee authenticateEmployee(String email, String password) throws DAOException {
         Employee employeeForAuthenticate = new Employee();
         boolean result = false;
@@ -78,7 +79,7 @@ public class EmployeeDAO implements IEmployee {
         int result = 0;
        
         if (!checkEmailDuplication(employee)) {
-            employee.encryptPassword(employee.getPassword());
+            employee.encryptPassword(encryptPassword(employee.getPassword()));
             result = insertEmployeeTransaction(employee);
         }
         return result;
@@ -269,9 +270,5 @@ public class EmployeeDAO implements IEmployee {
         }
         return encryptedPassword;
     }
-    
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> af9588c3c0508348ca8f699c0a523e1fa51e80a6
+

@@ -86,7 +86,7 @@ public class GymClassManagementController implements Initializable {
     
     @FXML
     void backButtonIsPressed(ActionEvent event) throws IOException{        
-        MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/main");           
+        MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/EmployeeMain");           
     }
     
     @FXML

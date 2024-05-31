@@ -81,7 +81,7 @@ public class MemberManagementController implements Initializable {
     @FXML
     void backButtonIsPressed(ActionEvent event) throws IOException{
         if(backConfirmation()) {
-            MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/main");   
+            MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/EmployeeMain");   
         }
     }
     

@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -55,7 +56,7 @@ public class MemberRegisterController implements Initializable {
 
     @FXML
     private PasswordField passwordPasswordField;
-    
+
     @FXML
     private ComboBox membershipTypeCombobox;
 
@@ -63,7 +64,10 @@ public class MemberRegisterController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        membershipTypeCombobox.getItems().addAll("Anual", "Mensual", "Trimestral");
+        membershipTypeCombobox.setItems(FXCollections.observableArrayList(
+                "Anual", "Mensual", "Trimestral"
+        ));
+
     }
 
     @FXML
@@ -172,7 +176,7 @@ public class MemberRegisterController implements Initializable {
             DialogController.getDialog(new AlertMessage(exception.getMessage(), exception.getStatus()));
             switch (exception.getStatus()) {
                 case ERROR ->
-                    MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/main");
+                    MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/EmployeeMain");
                 case FATAL ->
                     MainApp.changeView("/main/MainApp");
             }

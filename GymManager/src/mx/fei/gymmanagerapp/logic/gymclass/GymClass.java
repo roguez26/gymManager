@@ -6,91 +6,96 @@ import mx.fei.gymmanagerapp.logic.implementations.FieldValidator;
 /*
  * @author d0ubl3_d
  */
-
 public class GymClass {
-    
+
     private Employee coach;
-    
+
     private int idGymClass = 0;
     private String name;
     private String description;
     private String schedule;
     private String days;
     private int capacity;
-    
+
     public GymClass() {
     }
-    
+
     public Employee getCoach() {
         return coach;
     }
-    
+
     public void setCoach(Employee coach) {
+        if (coach == null) {
+            throw new IllegalArgumentException("Debe asginar un empleado que diriga la clase");
+        }
         this.coach = coach;
     }
-    
+
     public String getCoachName() {
         return coach != null ? coach.toString() : "Nameless";
     }
-    
+
     public int getIdGymClass() {
         return idGymClass;
     }
-    
+
     public void setIdGymClass(int idGymClass) {
         this.idGymClass = idGymClass;
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public void setName(String name) {
         FieldValidator fieldValidator = new FieldValidator();
 
         fieldValidator.checkName(name);
         this.name = name;
     }
-    
+
     public String getDescription() {
         return description;
     }
-    
+
     public void setDescription(String description) {
         FieldValidator fieldValidator = new FieldValidator();
 
         fieldValidator.checkText(description);
         this.description = description;
     }
-    
+
     public String getSchedule() {
         return schedule;
     }
-    
+
     public void setSchedule(String schedule) {
         FieldValidator fieldValidator = new FieldValidator();
 
         fieldValidator.checkScheduleFormat(schedule);
-        this.schedule = schedule;        
+        this.schedule = schedule;
     }
-    
+
     public String getDays() {
         return days;
     }
-    
+
     public void setDays(String days) {
         FieldValidator fieldValidator = new FieldValidator();
 
         fieldValidator.checkDaysOfWeek(days);
-        this.days = days;                                
+        this.days = days;
     }
-    
+
     public int getCapacity() {
         return capacity;
     }
-    
+
     public void setCapacity(int capacity) {
+        if (capacity <= 0) {
+            throw new IllegalArgumentException("La capcidad no puede ser igual o menor a cero");
+        }
         this.capacity = capacity;
     }
-    
+
 }

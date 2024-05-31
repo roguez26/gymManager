@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" styleClass="vbox-container" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.fei.gymmanagerapp.gui.controllers.EmployeeDetailsController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" styleClass="vbox-container" stylesheets="@../stylesheets/vboxBackground.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.fei.gymmanagerapp.gui.controllers.EmployeeDetailsController">
    <children>
       <HBox alignment="CENTER" prefHeight="130.0" prefWidth="800.0" spacing="70.0">
          <children>
-            <Label lineSpacing="20.0" text="Detalles del Representante Institucional">
+            <Label lineSpacing="20.0" stylesheets="@../stylesheets/titleLabel.css" text="Detalles del Empleado">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -21,27 +21,27 @@
       </HBox>
       <VBox maxWidth="-Infinity" prefHeight="434.0" prefWidth="402.0" spacing="10.0">
          <children>
-            <Label prefHeight="22.0" prefWidth="88.0" text="Nombre *" />
-            <TextField fx:id="nombreTextField" editable="false" prefHeight="12.0" prefWidth="266.0" />
-            <Label prefHeight="22.0" prefWidth="123.0" text="Apellido paterno *" />
-            <TextField fx:id="paternalSurnameTextField" editable="false" prefHeight="12.0" prefWidth="266.0" />
-            <Label prefHeight="23.0" prefWidth="143.0" text="Apellido materno" />
-            <TextField fx:id="maternalSurnameTextField" editable="false" prefHeight="12.0" prefWidth="266.0" />
-            <Label prefHeight="27.0" prefWidth="129.0" text="Correo electronico *" />
-            <TextField fx:id="emailTextField" editable="false" prefHeight="12.0" prefWidth="266.0" />
-            <Label prefHeight="27.0" prefWidth="93.0" text="Puesto *" />
-            <ComboBox fx:id="positionComboBox" disable="true" prefHeight="26.0" prefWidth="414.0" />
-            <Label prefHeight="27.0" prefWidth="93.0" text="Telefono *" />
-            <TextField fx:id="telefonoTextField" editable="false" prefHeight="12.0" prefWidth="266.0" />
+            <Label prefHeight="22.0" prefWidth="88.0" stylesheets="@../stylesheets/label.css" text="Nombre *" />
+            <TextField fx:id="nombreTextField" editable="false" prefHeight="12.0" prefWidth="266.0" stylesheets="@../stylesheets/textField.css" />
+            <Label prefHeight="22.0" prefWidth="123.0" stylesheets="@../stylesheets/label.css" text="Apellido paterno *" />
+            <TextField fx:id="paternalSurnameTextField" editable="false" prefHeight="12.0" prefWidth="266.0" stylesheets="@../stylesheets/textField.css" />
+            <Label prefHeight="23.0" prefWidth="143.0" stylesheets="@../stylesheets/label.css" text="Apellido materno" />
+            <TextField fx:id="maternalSurnameTextField" editable="false" prefHeight="12.0" prefWidth="266.0" stylesheets="@../stylesheets/textField.css" />
+            <Label prefHeight="27.0" prefWidth="129.0" stylesheets="@../stylesheets/label.css" text="Correo electronico *" />
+            <TextField fx:id="emailTextField" editable="false" prefHeight="12.0" prefWidth="266.0" stylesheets="@../stylesheets/textField.css" />
+            <Label prefHeight="27.0" prefWidth="93.0" stylesheets="@../stylesheets/label.css" text="Puesto *" />
+            <ComboBox fx:id="positionComboBox" disable="true" prefHeight="26.0" prefWidth="414.0" stylesheets="@../stylesheets/combobox.css" />
+            <Label prefHeight="27.0" prefWidth="93.0" stylesheets="@../stylesheets/label.css" text="Telefono *" />
+            <TextField fx:id="telefonoTextField" editable="false" prefHeight="12.0" prefWidth="266.0" stylesheets="@../stylesheets/textField.css" />
          </children>
       </VBox>
       <HBox alignment="CENTER" prefHeight="80.0" prefWidth="509.0">
          <children>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonIsPressed" prefWidth="65.0" text="Regresar" />
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonIsPressed" prefHeight="26.0" prefWidth="89.0" stylesheets="@../stylesheets/buttonGray.css" text="Regresar" />
             <Button fx:id="cancelButton" disable="true" mnemonicParsing="false" onAction="#cancelButtonIsPressed" prefWidth="65.0" text="Cancelar" visible="false" />
-            <Button fx:id="deleteButton" lineSpacing="40.0" mnemonicParsing="false" onAction="#deleteButtonIsPressed" prefWidth="65.0" text="Eliminar" />
+            <Button fx:id="deleteButton" lineSpacing="40.0" mnemonicParsing="false" onAction="#deleteButtonIsPressed" prefHeight="26.0" prefWidth="90.0" stylesheets="@../stylesheets/buttonRed.css" text="Eliminar" />
             <Button fx:id="saveButton" disable="true" mnemonicParsing="false" onAction="#saveButtonIsPressed" prefWidth="65.0" text="Guardar" visible="false" />
-            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButtonIsPressed" prefWidth="65.0" text="Editar" />
+            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButtonIsPressed" prefHeight="26.0" prefWidth="89.0" stylesheets="@../stylesheets/buttonBlue.css" text="Editar" />
          </children>
       </HBox>
    </children>

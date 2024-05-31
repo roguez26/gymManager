@@ -149,7 +149,7 @@ public class EmployeeRegisterController implements Initializable {
         try {
             DialogController.getDialog(new AlertMessage (exception.getMessage(), exception.getStatus()));
             switch (exception.getStatus()) {
-                case ERROR -> MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/main");
+                case ERROR -> MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/EmployeeMain");
                 case FATAL -> MainApp.changeView("/main/MainApp");
                 
             }
