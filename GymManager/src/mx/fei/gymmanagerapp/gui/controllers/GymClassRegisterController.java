@@ -183,7 +183,7 @@ public class GymClassRegisterController implements Initializable {
         ArrayList<Employee> employees = new ArrayList<>();
         try {
             // AQUI MODIFICAR LA CONSULTA PARA SACAR LOS QUE SON DE TIPO ENTRENADOR
-            employees = EMPLOYEE_DAO.getEmployees();
+            employees = EMPLOYEE_DAO.getEmployeesByPosition();
         } catch (DAOException exception) {
             Logger.getLogger(GymClassRegisterController.class.getName()).log(Level.SEVERE, null, exception);
         }

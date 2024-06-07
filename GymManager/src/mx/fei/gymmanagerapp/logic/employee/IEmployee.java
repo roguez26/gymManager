@@ -6,12 +6,14 @@ import mx.fei.gymmanagerapp.logic.implementations.DAOException;
 public interface IEmployee {
     
     public boolean isThereAtLeastOneEmployee() throws DAOException;
+    public boolean isThereADuplicatePhoneNumber(Employee employee) throws DAOException;
     public int registerEmployee(Employee employee) throws DAOException;
     public int updateEmployee(Employee employee) throws DAOException;
     public int deleteEmployeeById(int idEmployee) throws DAOException;
     public Employee getEmployeeByEmail(String email) throws DAOException;
     public Employee getEmployeeById(int idEmployee) throws DAOException;
-    public ArrayList<Employee> getEmployees() throws DAOException;  
+    public ArrayList<Employee> getEmployees() throws DAOException;
+    public ArrayList<Employee> getEmployeesByPosition() throws DAOException;
     public Employee authenticateEmployee(String email, String password) throws DAOException;
     
 }

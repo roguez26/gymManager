@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import main.MainApp;
 import mx.fei.gymmanagerapp.gui.views.AlertMessage;
@@ -50,7 +51,7 @@ public class EmployeeRegisterController implements Initializable {
     private ComboBox<String> positionsComboBox;
     
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordPasswordField;
     
     private EmployeeDAO employeeDAO = new EmployeeDAO();
 
@@ -107,7 +108,7 @@ public class EmployeeRegisterController implements Initializable {
         emailTextField.setText("");
         positionsComboBox.setValue("");
         phoneNumberTextField.setText("");    
-        passwordTextField.setText("");
+        passwordPasswordField.setText("");
     }
 
     
@@ -118,7 +119,7 @@ public class EmployeeRegisterController implements Initializable {
                 emailTextField.getText().isEmpty() ||
                 positionsComboBox.getValue() == null ||
                 phoneNumberTextField.getText().isEmpty() ||
-                passwordTextField.getText().isEmpty()) {
+                passwordPasswordField.getText().isEmpty()) {
             emptyFieldsCheck = true;
         }
 
@@ -133,7 +134,7 @@ public class EmployeeRegisterController implements Initializable {
         employee.setEmail(emailTextField.getText());
         employee.setPosition(positionsComboBox.getValue());
         employee.setPhoneNumber(phoneNumberTextField.getText());
-        employee.setPassword(passwordTextField.getText());
+        employee.setPassword(passwordPasswordField.getText());
         return employee;
     }    
     
@@ -150,7 +151,7 @@ public class EmployeeRegisterController implements Initializable {
             DialogController.getDialog(new AlertMessage (exception.getMessage(), exception.getStatus()));
             switch (exception.getStatus()) {
                 case ERROR -> MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/EmployeeMain");
-                case FATAL -> MainApp.changeView("/main/MainApp");
+                case FATAL -> MainApp.changeView("/main/LoginEmployee");
                 
             }
         } catch (IOException ioException) {
