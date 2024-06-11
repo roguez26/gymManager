@@ -69,10 +69,30 @@ public class EmployeeDAO implements IEmployee {
             }
         } catch (SQLException exception) {
             LOG.log(Level.SEVERE, exception.getMessage(), exception);
-            throw new DAOException("No fue posible verificar que haya empleados", Status.ERROR);
+            throw new DAOException("No fue posible verificar que haya empleados", Status.WARNING);
         }
         return result;
     }    
+    
+    public boolean trainerIsInAtLeastOneClass(Employee employee) throws DAOException {
+        String statement = "SELECT EXISTS (SELECT 1 FROM clase WHERE Empleado_idEmpleado = ? LIMIT 1) AS hay_registros;";
+        DatabaseManager databaseManager = new DatabaseManager();
+        
+        try (Connection connection = databaseManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(statement)) {            
+            preparedStatement.setInt(1,employee.getIdEmployee());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                if (resultSet.getBoolean("hay_registros")) {
+                    throw new DAOException("El empleado esta registrado en una clase", Status.WARNING);
+                }
+            }
+        } catch (SQLException exception) {
+            LOG.log(Level.SEVERE, exception.getMessage(), exception);
+            throw new DAOException("Empleado registradi en una clase", Status.ERROR);
+        }
+        return false;
+    }
     
     @Override
     public boolean isThereADuplicatePhoneNumber(Employee employee) throws DAOException {
@@ -129,7 +149,7 @@ public class EmployeeDAO implements IEmployee {
             result = preparedStatement.executeUpdate();
         } catch (SQLException exception) {
             LOG.log(Level.SEVERE, exception.getMessage(), exception);
-            throw new DAOException("No fue posible eliminar el empleado", Status.ERROR);
+            throw new DAOException("No fue posible eliminar al empleado porque esta en una clase", Status.WARNING);
         }
         return result;
     }

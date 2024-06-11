@@ -85,7 +85,9 @@ public class EmployeeDetailsController implements Initializable {
         
         if(deleteConfirmation()) {
             try {
-                rowsAffected = employeeDAO.deleteEmployeeById(employee.getIdEmployee());
+                if (!employeeDAO.trainerIsInAtLeastOneClass(employee)) {
+                    rowsAffected = employeeDAO.deleteEmployeeById(employee.getIdEmployee());
+                }
             } catch (DAOException exception) {
                 handleDAOException(exception);
             }
@@ -93,9 +95,7 @@ public class EmployeeDetailsController implements Initializable {
         if (rowsAffected > 0) {
             DialogController.getInformativeConfirmationDialog("Empleado eliminado", "Empleado eliminado con éxito");
             MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/EmployeeManagement");
-        } else {
-            DialogController.getInformativeConfirmationDialog("Empleado no eliminado", "El empleado no se pudo eliminar");
-        }
+        } 
     }
 
     @FXML

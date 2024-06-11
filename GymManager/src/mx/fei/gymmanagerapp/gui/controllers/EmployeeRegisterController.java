@@ -64,7 +64,6 @@ public class EmployeeRegisterController implements Initializable {
     private void saveButtonIsPressed(ActionEvent event) {
         try {
           invokeEmployeeRegister();  
-          MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/EmployeeManagement");
         } catch (DAOException exception) {
             handleDAOException(exception);
         } catch (IllegalArgumentException exception) {
@@ -94,6 +93,7 @@ public class EmployeeRegisterController implements Initializable {
                 DialogController.getInformativeConfirmationDialog
                     ("Registrado","Se ha realizado el registro con éxito.");
                 cleanFields();
+                MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/EmployeeManagement");
             }
         } else {
             DialogController.getInformativeConfirmationDialog(

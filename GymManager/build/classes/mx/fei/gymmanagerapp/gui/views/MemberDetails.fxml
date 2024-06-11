@@ -13,7 +13,7 @@
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0" spacing="70.0">
          <children>
-            <Label lineSpacing="20.0" stylesheets="@../stylesheets/titleLabel.css" text="Detalles del Representante Institucional">
+            <Label lineSpacing="20.0" stylesheets="@../stylesheets/titleLabel.css" text="Detalles del Miembro">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
