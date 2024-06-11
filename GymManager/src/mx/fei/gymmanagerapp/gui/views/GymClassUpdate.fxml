@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" styleClass="vbox-container" stylesheets="@../stylesheets/vboxBackground.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.fei.gymmanagerapp.gui.controllers.GymClassUpdateController">
+<VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" styleClass="vbox-container" stylesheets="@../stylesheets/vboxBackground.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.fei.gymmanagerapp.gui.controllers.GymClassUpdateController">
    <children>
       <HBox alignment="CENTER" prefHeight="106.0" prefWidth="686.0" spacing="90.0">
          <children>
@@ -19,13 +20,13 @@
             </Label>
          </children>
       </HBox>
-      <VBox maxWidth="-Infinity" prefHeight="470.0" prefWidth="450.0" spacing="10.0">
+      <VBox maxWidth="-Infinity" prefHeight="470.0" prefWidth="590.0" spacing="10.0">
          <children>
             <Label prefHeight="22.0" prefWidth="102.0" stylesheets="@../stylesheets/label.css" text="Nombre" />
             <TextField fx:id="nameTextField" prefHeight="12.0" prefWidth="266.0" promptText="Ej. Spinning " stylesheets="@../stylesheets/textField.css" />
             <Label prefHeight="23.0" prefWidth="145.0" stylesheets="@../stylesheets/label.css" text="Descripción" />
             <TextField fx:id="descriptionTextField" prefHeight="12.0" prefWidth="450.0" promptText="Ej. clase de ciclismo indoor en bicicletas estáticas" stylesheets="@../stylesheets/textField.css" />
-            <HBox prefHeight="63.0" prefWidth="460.0" spacing="100.0">
+            <HBox prefHeight="63.0" prefWidth="460.0" spacing="30.0">
                <children>
                   <VBox prefHeight="69.0" prefWidth="129.0" spacing="10.0">
                      <children>
@@ -52,9 +53,19 @@
                </children>
             </HBox>
             <Label layoutX="10.0" layoutY="10.0" prefHeight="22.0" prefWidth="102.0" stylesheets="@../stylesheets/label.css" text="Días" />
-            <TextField fx:id="daysTextField" prefHeight="12.0" prefWidth="266.0" promptText="Ej. Martes, Jueves" stylesheets="@../stylesheets/textField.css" />
+            <HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="43.0" prefWidth="590.0" spacing="6.0">
+               <children>
+                  <CheckBox fx:id="mondayCheckBox" mnemonicParsing="false" text="Lunes" />
+                  <CheckBox fx:id="tuesdayCheckBox" mnemonicParsing="false" text="Martes" />
+                  <CheckBox fx:id="wednesdayCheckBox" mnemonicParsing="false" text="Miércoles" />
+                  <CheckBox fx:id="thursdayCheckBox" mnemonicParsing="false" text="Jueves" />
+                  <CheckBox fx:id="fridayCheckBox" mnemonicParsing="false" text="Viernes" />
+                  <CheckBox fx:id="saturdayCheckBox" mnemonicParsing="false" text="Sábado" />
+                  <CheckBox fx:id="sundayCheckBox" layoutX="392.0" layoutY="21.0" mnemonicParsing="false" text="Domingo" />
+               </children>
+            </HBox>
             <Label prefHeight="27.0" prefWidth="93.0" stylesheets="@../stylesheets/label.css" text="Entrenador" />
-            <ComboBox fx:id="coachComboBox" editable="false" prefHeight="31.0" prefWidth="465.0" stylesheets="@../stylesheets/combobox.css" />
+            <ComboBox fx:id="coachComboBox" editable="false" prefHeight="31.0" prefWidth="605.0" stylesheets="@../stylesheets/combobox.css" />
             <Label prefHeight="27.0" prefWidth="93.0" stylesheets="@../stylesheets/label.css" text="Cupo" />
             <ComboBox fx:id="capacityComboBox" prefHeight="31.0" prefWidth="100.0" stylesheets="@../stylesheets/combobox.css" />
          </children>

@@ -26,7 +26,7 @@ public class GymClass {
 
     public void setCoach(Employee coach) {
         if (coach == null) {
-            throw new IllegalArgumentException("Debe asginar un empleado que diriga la clase");
+            throw new IllegalArgumentException("Seleccione un entrenador");
         }
         this.coach = coach;
     }
@@ -92,8 +92,8 @@ public class GymClass {
     }
 
     public void setCapacity(int capacity) {
-        if (capacity <= 0) {
-            throw new IllegalArgumentException("La capcidad no puede ser igual o menor a cero");
+        if (capacity == 0) {
+            throw new IllegalArgumentException("Debe ingresar un cupo valido para la clase");
         }
         this.capacity = capacity;
     }

@@ -12,8 +12,8 @@ public class DatabaseManager {
 
     private Connection connection;
     private static final String DATABASE_URL = "jdbc:mysql://127.0.0.1/gimnasiodb";
-    private static final String DATABASE_USER = "gym";
-    private static final String DATABASE_PASSWORD = "gym123";
+    private static final String DATABASE_USER = "root";
+    private static final String DATABASE_PASSWORD = "MontielAcosta03";
 
     public DatabaseManager() {
 

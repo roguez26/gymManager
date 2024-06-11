@@ -18,7 +18,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("/mx/fei/gymmanagerapp/gui/views/EmployeeManagement"));
+        scene = new Scene(loadFXML("/mx/fei/gymmanagerapp/gui/views/EmployeeMain"));
         stage.setScene(scene);
         stage.setWidth(WIDTH);
         stage.setHeight(HEIGHT);
