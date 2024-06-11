@@ -69,16 +69,58 @@ public class EmployeeDAO implements IEmployee {
             }
         } catch (SQLException exception) {
             LOG.log(Level.SEVERE, exception.getMessage(), exception);
-            throw new DAOException("No fue posible verificar que haya empleados", Status.ERROR);
+            throw new DAOException("No fue posible verificar que haya empleados", Status.WARNING);
         }
         return result;
+    }    
+    
+    public boolean trainerIsInAtLeastOneClass(Employee employee) throws DAOException {
+        String statement = "SELECT EXISTS (SELECT 1 FROM clase WHERE Empleado_idEmpleado = ? LIMIT 1) AS hay_registros;";
+        DatabaseManager databaseManager = new DatabaseManager();
+        
+        try (Connection connection = databaseManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(statement)) {            
+            preparedStatement.setInt(1,employee.getIdEmployee());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                if (resultSet.getBoolean("hay_registros")) {
+                    throw new DAOException("El empleado esta registrado en una clase", Status.WARNING);
+                }
+            }
+        } catch (SQLException exception) {
+            LOG.log(Level.SEVERE, exception.getMessage(), exception);
+            throw new DAOException("Empleado registradi en una clase", Status.ERROR);
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean isThereADuplicatePhoneNumber(Employee employee) throws DAOException {
+        String statement = "SELECT EXISTS(SELECT 1 FROM empleado where telefono = ? and idEmpleado <> ? LIMIT 1) AS hay_registros;";
+        DatabaseManager databaseManager = new DatabaseManager();
+        
+        try (Connection connection = databaseManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(statement)) {            
+            preparedStatement.setString(1,employee.getPhoneNumber());
+            preparedStatement.setInt(2,employee.getIdEmployee());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                if (resultSet.getBoolean("hay_registros")) {
+                    throw new DAOException("El telefono ya se encuentra registrado", Status.WARNING);
+                }
+            }
+        } catch (SQLException exception) {
+            LOG.log(Level.SEVERE, exception.getMessage(), exception);
+            throw new DAOException("Numero de telefono registrado", Status.ERROR);
+        }
+        return false;
     }
 
     @Override
     public int registerEmployee(Employee employee) throws DAOException {
         int result = 0;
        
-        if (!checkEmailDuplication(employee)) {
+        if (!checkEmailDuplication(employee) && !isThereADuplicatePhoneNumber(employee)) {
             employee.encryptPassword(encryptPassword(employee.getPassword()));
             result = insertEmployeeTransaction(employee);
         }
@@ -88,18 +130,8 @@ public class EmployeeDAO implements IEmployee {
     @Override
     public int updateEmployee(Employee newEmployeeInformation) throws DAOException {
         int result = 0;
-        
-        String passwordForUpdate = newEmployeeInformation.getPassword();
-        String encriptedPasswordForUpdate;
-        Employee oldEmployeeInformation = getEmployeeById(newEmployeeInformation.getIdEmployee());
-        
-        encriptedPasswordForUpdate = encryptPassword(passwordForUpdate);
-        
-        if (oldEmployeeInformation.getPassword().equals(encriptedPasswordForUpdate)) {
-            newEmployeeInformation.setPassword(encriptedPasswordForUpdate);
-        }
-        
-        if (!checkEmailDuplication(newEmployeeInformation)) {
+                
+        if (!checkEmailDuplication(newEmployeeInformation) && !isThereADuplicatePhoneNumber(newEmployeeInformation)) {
             result = updateEmployeeTransaction(newEmployeeInformation);
         }
         return result;
@@ -117,7 +149,7 @@ public class EmployeeDAO implements IEmployee {
             result = preparedStatement.executeUpdate();
         } catch (SQLException exception) {
             LOG.log(Level.SEVERE, exception.getMessage(), exception);
-            throw new DAOException("No fue posible eliminar el empleado", Status.ERROR);
+            throw new DAOException("No fue posible eliminar al empleado porque esta en una clase", Status.WARNING);
         }
         return result;
     }
@@ -183,6 +215,26 @@ public class EmployeeDAO implements IEmployee {
         }
         return employees;
     }
+    
+    @Override
+    public ArrayList<Employee> getEmployeesByPosition() throws DAOException {
+        ArrayList<Employee> employees = new ArrayList<>();
+        DatabaseManager databaseManager = new DatabaseManager();
+        String statement = "SELECT * FROM empleado WHERE puesto = 'Entrenador'";
+        
+        try (Connection connection = databaseManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(statement);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                Employee employee = initializeEmployeeFromResultSet(resultSet);
+                employees.add(employee);
+            }
+        } catch (SQLException exception) {
+            LOG.log(Level.SEVERE, exception.getMessage(), exception);
+            throw new DAOException("No fue posible obtener los empleados", Status.ERROR);
+        }
+        return employees;        
+    }
 
     private int insertEmployeeTransaction(Employee employee) throws DAOException {
         int result = -1;
@@ -215,7 +267,7 @@ public class EmployeeDAO implements IEmployee {
     private int updateEmployeeTransaction(Employee newEmployeeInformation) throws DAOException {
         int result = -1;
         String statement = "UPDATE empleado SET nombre = ?, apellidopaterno = ?,"
-                + " apellidomaterno = ?, puesto = ?, telefono = ?, correo = ?, contrasenia = ? WHERE idEmpleado = ?";
+                + " apellidomaterno = ?, puesto = ?, telefono = ?, correo = ? WHERE idEmpleado = ?";
         DatabaseManager databaseManager = new DatabaseManager();
         
         try (Connection connection = databaseManager.getConnection();
@@ -226,8 +278,7 @@ public class EmployeeDAO implements IEmployee {
             preparedStatement.setString(4, newEmployeeInformation.getPosition());
             preparedStatement.setString(5, newEmployeeInformation.getPhoneNumber());
             preparedStatement.setString(6, newEmployeeInformation.getEmail());
-            preparedStatement.setString(7, newEmployeeInformation.getPassword());
-            preparedStatement.setInt(8, newEmployeeInformation.getIdEmployee());
+            preparedStatement.setInt(7, newEmployeeInformation.getIdEmployee());
             result = preparedStatement.executeUpdate();
         } catch (SQLException exception) {
             LOG.log(Level.SEVERE, exception.getMessage(), exception);

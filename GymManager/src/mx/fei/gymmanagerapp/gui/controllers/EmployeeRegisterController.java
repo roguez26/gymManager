@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import main.MainApp;
 import mx.fei.gymmanagerapp.gui.views.AlertMessage;
@@ -50,9 +51,10 @@ public class EmployeeRegisterController implements Initializable {
     private ComboBox<String> positionsComboBox;
     
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordPasswordField;
     
     private EmployeeDAO employeeDAO = new EmployeeDAO();
+    private String passwordForShow;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -63,7 +65,6 @@ public class EmployeeRegisterController implements Initializable {
     private void saveButtonIsPressed(ActionEvent event) {
         try {
           invokeEmployeeRegister();  
-          MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/EmployeeManagement");
         } catch (DAOException exception) {
             handleDAOException(exception);
         } catch (IllegalArgumentException exception) {
@@ -93,6 +94,7 @@ public class EmployeeRegisterController implements Initializable {
                 DialogController.getInformativeConfirmationDialog
                     ("Registrado","Se ha realizado el registro con éxito.");
                 cleanFields();
+                MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/EmployeeManagement");
             }
         } else {
             DialogController.getInformativeConfirmationDialog(
@@ -107,7 +109,7 @@ public class EmployeeRegisterController implements Initializable {
         emailTextField.setText("");
         positionsComboBox.setValue("");
         phoneNumberTextField.setText("");    
-        passwordTextField.setText("");
+        passwordPasswordField.setText("");
     }
 
     
@@ -118,7 +120,7 @@ public class EmployeeRegisterController implements Initializable {
                 emailTextField.getText().isEmpty() ||
                 positionsComboBox.getValue() == null ||
                 phoneNumberTextField.getText().isEmpty() ||
-                passwordTextField.getText().isEmpty()) {
+                passwordPasswordField.getText().isEmpty()) {
             emptyFieldsCheck = true;
         }
 
@@ -133,7 +135,7 @@ public class EmployeeRegisterController implements Initializable {
         employee.setEmail(emailTextField.getText());
         employee.setPosition(positionsComboBox.getValue());
         employee.setPhoneNumber(phoneNumberTextField.getText());
-        employee.setPassword(passwordTextField.getText());
+        employee.setPassword(passwordPasswordField.getText());
         return employee;
     }    
     
@@ -150,7 +152,7 @@ public class EmployeeRegisterController implements Initializable {
             DialogController.getDialog(new AlertMessage (exception.getMessage(), exception.getStatus()));
             switch (exception.getStatus()) {
                 case ERROR -> MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/EmployeeMain");
-                case FATAL -> MainApp.changeView("/main/MainApp");
+                case FATAL -> MainApp.changeView("/main/LoginEmployee");
                 
             }
         } catch (IOException ioException) {
@@ -161,5 +163,20 @@ public class EmployeeRegisterController implements Initializable {
     private void handleValidationException(IllegalArgumentException exception) {
         DialogController.getDialog(new AlertMessage( exception.getMessage(), Status.WARNING));
     } 
+    
+    @FXML
+    void showButtonIsPressed() {
+        if (passwordPasswordField != null) {
+            passwordForShow = passwordPasswordField.getText();
+            passwordPasswordField.clear();
+            passwordPasswordField.setPromptText(passwordForShow);
+        }
+    }
+
+    @FXML
+    void showButtonIsReleased() {
+        passwordPasswordField.setText(passwordForShow);
+        passwordPasswordField.setPromptText(null);
+    }
     
 }

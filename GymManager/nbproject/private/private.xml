@@ -3,16 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/gui/controllers/DoPaymentController.java</file>
             <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/logic/member/MemberDAO.java</file>
-            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/gui/views/MemberRegister.fxml</file>
+            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/gui/controllers/MemberDetailsController.java</file>
             <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/gui/controllers/MemberDetailsForMemberController.java</file>
-            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/main/MainApp.java</file>
-            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/test/unit/test/EmployeeDAO/TestEmployeeDAO.java</file>
-            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/gui/controllers/LoginEmployeeController.java</file>
-            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/logic/member/IMember.java</file>
             <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/gui/controllers/MemberRegisterController.java</file>
-            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/logic/member/Member.java</file>
         </group>
     </open-files>
 </project-private>

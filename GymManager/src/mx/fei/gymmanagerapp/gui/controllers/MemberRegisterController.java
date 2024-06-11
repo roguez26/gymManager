@@ -140,7 +140,7 @@ public class MemberRegisterController implements Initializable {
         if (response) {
             idMember = MEMBER_DAO.registerMember(member);
         }
-        if (status.equals("Pagado")) {
+        if (status != null && status.equals("Pagado")) {
             System.out.println("ssss");
             MEMBER_DAO.assignPayment(idMember);
         }

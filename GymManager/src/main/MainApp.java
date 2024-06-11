@@ -14,7 +14,7 @@ public class MainApp extends Application {
 
     private static Scene scene;
     private static final int WIDTH = 800;
-    private static final int HEIGHT = 670;
+    private static final int HEIGHT = 700;
 
     @Override
     public void start(Stage stage) throws IOException {

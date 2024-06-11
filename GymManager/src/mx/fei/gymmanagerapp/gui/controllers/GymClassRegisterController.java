@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import main.MainApp;
@@ -52,7 +53,25 @@ public class GymClassRegisterController implements Initializable {
     private ComboBox<String> endMinutesComboBox;
     
     @FXML
-    private TextField daysTextField;
+    private CheckBox mondayCheckBox;
+    
+    @FXML
+    private CheckBox tuesdayCheckBox;
+    
+    @FXML
+    private CheckBox wednesdayCheckBox;
+    
+    @FXML
+    private CheckBox thursdayCheckBox;
+    
+    @FXML
+    private CheckBox fridayCheckBox;
+    
+    @FXML
+    private CheckBox saturdayCheckBox;
+    
+    @FXML
+    private CheckBox sundayCheckBox;
     
     @FXML
     private ComboBox<Employee> coachComboBox;
@@ -109,9 +128,9 @@ public class GymClassRegisterController implements Initializable {
         return (response.get() == DialogController.BUTTON_YES);
     }
     
-    private void invokeGymClassRegister() throws DAOException, IOException {
+    private void invokeGymClassRegister() throws DAOException, IOException {        
         GymClass gymClass = initializeGymClass();
-        if (!fieldsAreEmpty()) {
+        if (!fieldsAreEmpty()) {            
             int idGymClass = GYMCLASS_DAO.registerGymClass(gymClass);
             if(idGymClass > 0) {
                 DialogController.getInformativeConfirmationDialog
@@ -119,6 +138,7 @@ public class GymClassRegisterController implements Initializable {
                 cleanFields();
             }
         } else {
+            // FIX ME: CHECK THIS
             DialogController.getInformativeConfirmationDialog(
                     "Campos vacios","Asegurese de llenar todos los campos");
         }        
@@ -131,33 +151,93 @@ public class GymClassRegisterController implements Initializable {
         startMinutesComboBox.setValue(null);
         endHourComboBox.setValue(null);
         endMinutesComboBox.setValue(null);
-        daysTextField.setText("");
+        
+        mondayCheckBox.setSelected(false);
+        tuesdayCheckBox.setSelected(false);
+        wednesdayCheckBox.setSelected(false);
+        thursdayCheckBox.setSelected(false);
+        fridayCheckBox.setSelected(false);
+        saturdayCheckBox.setSelected(false);
+        sundayCheckBox.setSelected(false);
+        
         coachComboBox.setValue(null);
         capacityComboBox.setValue(null);
                 
     }
     
     private boolean fieldsAreEmpty() {
-        return nameTextField.getText().isEmpty() || 
-               descriptionTextField.getText().isEmpty() ||
-               startHourComboBox.getValue() == null ||
-               startMinutesComboBox.getValue() == null ||
-               endHourComboBox.getValue() == null ||
-               endMinutesComboBox.getValue() == null ||
-               daysTextField.getText().isEmpty() ||
-               coachComboBox.getValue() == null ||
-               capacityComboBox.getValue() == null;                                        
+        return nameTextField.getText().isEmpty() ||                                
+                descriptionTextField.getText().isEmpty() ||
+                startHourComboBox.getValue() == null ||
+                startMinutesComboBox.getValue() == null ||
+                endHourComboBox.getValue() == null ||
+                endMinutesComboBox.getValue() == null ||
+                
+                (!mondayCheckBox.isSelected() &&
+                !tuesdayCheckBox.isSelected() &&
+                !wednesdayCheckBox.isSelected() &&
+                !thursdayCheckBox.isSelected() &&
+                !fridayCheckBox.isSelected() &&
+                !saturdayCheckBox.isSelected() &&
+                !sundayCheckBox.isSelected()) ||
+                
+                coachComboBox.getValue() == null ||
+                capacityComboBox.getValue() == null;                                        
     }
     
     private GymClass initializeGymClass() throws DAOException {
         GymClass gymClass = new GymClass();
+        StringBuilder days = new StringBuilder();
         gymClass.setName(nameTextField.getText());
         gymClass.setDescription(descriptionTextField.getText());
         gymClass.setSchedule(startHourComboBox.getValue() + ":" + startMinutesComboBox.getValue() + "-"
-        + endHourComboBox.getValue() + ":" + endMinutesComboBox.getValue());
-        gymClass.setDays(daysTextField.getText());
+        + endHourComboBox.getValue() + ":" + endMinutesComboBox.getValue());                
+        if (mondayCheckBox.isSelected()) {
+            days.append("Lunes");
+        }
+        if (tuesdayCheckBox.isSelected()) {
+            if (days.length() > 0) {
+                days.append(", ");
+            }
+            days.append("Martes");
+        }
+        if (wednesdayCheckBox.isSelected()) {
+            if (days.length() > 0) {
+                days.append(", ");
+            }
+            days.append("Miércoles");
+        }
+        if (thursdayCheckBox.isSelected()) {
+            if (days.length() > 0) {
+                days.append(", ");
+            }
+            days.append("Jueves");
+        }
+        if (fridayCheckBox.isSelected()) {
+            if (days.length() > 0) {
+                days.append(", ");
+            }
+            days.append("Viernes");
+        }
+        if (saturdayCheckBox.isSelected()) {
+            if (days.length() > 0) {
+                days.append(", ");
+            }
+            days.append("Sábado");
+        }
+        if (sundayCheckBox.isSelected()) {
+            if (days.length() > 0) {
+                days.append(", ");
+            }
+            days.append("Domingo");
+        }
+        gymClass.setDays(days.toString());
         gymClass.setCoach((Employee) coachComboBox.getValue());
-        gymClass.setCapacity((int) capacityComboBox.getValue());
+        if (capacityComboBox.getValue() != null) {            
+            gymClass.setCapacity((int) capacityComboBox.getValue());
+        } else {
+            gymClass.setCapacity(0);
+        }        
         return gymClass;
     } 
     
@@ -181,9 +261,8 @@ public class GymClassRegisterController implements Initializable {
     
     private ArrayList<Employee> initializeCoachesArrayForComboBox() {
         ArrayList<Employee> employees = new ArrayList<>();
-        try {
-            // AQUI MODIFICAR LA CONSULTA PARA SACAR LOS QUE SON DE TIPO ENTRENADOR
-            employees = EMPLOYEE_DAO.getEmployees();
+        try {            
+            employees = EMPLOYEE_DAO.getEmployeesByPosition();
         } catch (DAOException exception) {
             Logger.getLogger(GymClassRegisterController.class.getName()).log(Level.SEVERE, null, exception);
         }

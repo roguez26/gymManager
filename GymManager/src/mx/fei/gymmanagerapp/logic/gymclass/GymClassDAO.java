@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mx.fei.gymmanagerapp.dataaccess.DatabaseManager;
@@ -25,12 +28,14 @@ public class GymClassDAO implements IGymClass {
         int result = -1;
         
         if (!checkGymClassDuplicate(gymClass)) {
-            result = insertGymClass(gymClass);
+            if (!checkCoachGymClassSchedules(gymClass)) {
+                result = insertGymClass(gymClass);
+            }            
         }
         return result;
     }
     
-    public boolean checkGymClassDuplicate(GymClass gymClass) throws DAOException {
+    private boolean checkGymClassDuplicate(GymClass gymClass) throws DAOException {
         GymClass auxGymClass = new GymClass();
         
         try {
@@ -43,6 +48,52 @@ public class GymClassDAO implements IGymClass {
             throw new DAOException("Ya hay una clase registrada con ese nombre", Status.WARNING);
         }
         return false;
+    }
+    
+    private boolean checkCoachGymClassSchedules(GymClass gymClass) throws DAOException {
+        ArrayList<GymClass> gymClasses = new ArrayList<>();
+        String[] days = gymClass.getDays().split(", ");
+        int idEmployee;
+        
+        try {
+            idEmployee = gymClass.getCoach().getIdEmployee();
+            for (String day: days) {
+                gymClasses.addAll(getCoachScheduleGymClassesByDays(idEmployee, day));
+            }                        
+        } catch (DAOException exception) {
+            throw new DAOException("No fue posible hacer la validación, intente más tarde", Status.WARNING);
+        }
+        for (GymClass auxGymClass : gymClasses) {
+            if (isScheduleConflict(auxGymClass.getSchedule(), gymClass.getSchedule()) &&
+            auxGymClass.getIdGymClass() != gymClass.getIdGymClass() &&                    
+            auxGymClass.getIdGymClass() > 0) {
+                throw new DAOException("El entrenador tiene una clase que causa conflicto con el horario", Status.WARNING);
+            }
+        }        
+        return false;
+    }
+    
+    private boolean isScheduleConflict(String schedule, String newSchedule) {
+        boolean check;
+        check = false;
+        String[] gymClassSchedule = schedule.split("-");
+        String[] newGymClassSchedule = newSchedule.split("-");
+                
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        try {
+            Date startGymClassSchedule = sdf.parse(gymClassSchedule[0].trim());
+            Date endGymClassSchedule = sdf.parse(gymClassSchedule[1].trim());
+            Date startNewGymClassSchedule = sdf.parse(newGymClassSchedule[0].trim());
+            Date endNewGymClassSchedule = sdf.parse(newGymClassSchedule[1].trim());                        
+            
+            check = (startNewGymClassSchedule.compareTo(startGymClassSchedule) >= 0 &&
+            startNewGymClassSchedule.compareTo(endGymClassSchedule) <= 0) ||
+            (startGymClassSchedule.compareTo(startNewGymClassSchedule) >= 0 &&
+            startGymClassSchedule.compareTo(endNewGymClassSchedule) <= 0);
+        } catch (ParseException exception) {
+            Logger.getLogger(GymClassDAO.class.getName()).log(Level.SEVERE, null, exception);
+        }
+        return check;
     }
     
     private int insertGymClass(GymClass gymClass) throws DAOException {
@@ -217,7 +268,9 @@ public class GymClassDAO implements IGymClass {
         int result = -1;
         
         if (!checkGymClassDuplicate(gymClass)) {
-            result = updateGymClassPrivate(gymClass);
+            if (!checkCoachGymClassSchedules(gymClass)) {
+                result = updateGymClassPrivate(gymClass);
+            }            
         }
         return result;
     }
@@ -330,5 +383,47 @@ public class GymClassDAO implements IGymClass {
             Logger.getLogger(GymClassDAO.class.getName()).log(Level.SEVERE, null, exception);
         }                
         return gymClass;
-    }    
+    }
+    
+    private ArrayList<GymClass> getCoachScheduleGymClassesByDays(int idEmployee, String day) throws DAOException {
+        ArrayList<GymClass> gymClasses = new ArrayList<>();
+        DatabaseManager databaseManager = new DatabaseManager();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String statement = "SELECT * FROM Clase"
+        + " WHERE Empleado_idEmpleado = ? AND dias LIKE ?";
+        
+        try {
+            connection = databaseManager.getConnection();
+            preparedStatement = connection.prepareStatement(statement);
+            
+            
+            preparedStatement.setInt(1,idEmployee);
+            preparedStatement.setString(2, "%" + day + "%");
+            
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                gymClasses.add(initializeGymClass(resultSet));
+            }
+        } catch(SQLException exception) {
+            Logger.getLogger(GymClassDAO.class.getName()).log(Level.SEVERE, null, exception);
+            throw new DAOException("No fue posible recuperar los horarios", Status.ERROR);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException exception){
+                Logger.getLogger(GymClassDAO.class.getName()).log(Level.SEVERE, null, exception);
+            }
+        }
+        return gymClasses;
+    }
 }
