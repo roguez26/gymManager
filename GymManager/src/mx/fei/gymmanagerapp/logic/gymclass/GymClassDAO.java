@@ -52,9 +52,14 @@ public class GymClassDAO implements IGymClass {
     
     private boolean checkCoachGymClassSchedules(GymClass gymClass) throws DAOException {
         ArrayList<GymClass> gymClasses = new ArrayList<>();
+        String[] days = gymClass.getDays().split(", ");
+        int idEmployee;
         
         try {
-            gymClasses = getCoachScheduleGymClassesByDays(gymClass);
+            idEmployee = gymClass.getCoach().getIdEmployee();
+            for (String day: days) {
+                gymClasses.addAll(getCoachScheduleGymClassesByDays(idEmployee, day));
+            }                        
         } catch (DAOException exception) {
             throw new DAOException("No fue posible hacer la validación, intente más tarde", Status.WARNING);
         }
@@ -380,7 +385,7 @@ public class GymClassDAO implements IGymClass {
         return gymClass;
     }
     
-    private ArrayList<GymClass> getCoachScheduleGymClassesByDays(GymClass gymClass) throws DAOException {
+    private ArrayList<GymClass> getCoachScheduleGymClassesByDays(int idEmployee, String day) throws DAOException {
         ArrayList<GymClass> gymClasses = new ArrayList<>();
         DatabaseManager databaseManager = new DatabaseManager();
         Connection connection = null;
@@ -394,8 +399,8 @@ public class GymClassDAO implements IGymClass {
             preparedStatement = connection.prepareStatement(statement);
             
             
-            preparedStatement.setInt(1,gymClass.getCoach().getIdEmployee());
-            preparedStatement.setString(2, "%" + gymClass.getDays() + "%");
+            preparedStatement.setInt(1,idEmployee);
+            preparedStatement.setString(2, "%" + day + "%");
             
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
