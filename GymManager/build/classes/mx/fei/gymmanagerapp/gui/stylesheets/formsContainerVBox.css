@@ -1,0 +1,13 @@
+.vbox-container {
+    -fx-background-color: rgba(12, 37, 165, 0.211);
+    -fx-border-width: 1px;
+    
+    
+}
+
+/* Estilo específico para el contenido interno */
+.vbox-container .content {
+    -fx-background-color:rgba(12, 38, 165, 0.109); /* Color de fondo para el contenido */
+    -fx-background-radius: 13px;
+    
+}
