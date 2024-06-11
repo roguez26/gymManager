@@ -54,6 +54,7 @@ public class EmployeeRegisterController implements Initializable {
     private PasswordField passwordPasswordField;
     
     private EmployeeDAO employeeDAO = new EmployeeDAO();
+    private String passwordForShow;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -162,5 +163,20 @@ public class EmployeeRegisterController implements Initializable {
     private void handleValidationException(IllegalArgumentException exception) {
         DialogController.getDialog(new AlertMessage( exception.getMessage(), Status.WARNING));
     } 
+    
+    @FXML
+    void showButtonIsPressed() {
+        if (passwordPasswordField != null) {
+            passwordForShow = passwordPasswordField.getText();
+            passwordPasswordField.clear();
+            passwordPasswordField.setPromptText(passwordForShow);
+        }
+    }
+
+    @FXML
+    void showButtonIsReleased() {
+        passwordPasswordField.setText(passwordForShow);
+        passwordPasswordField.setPromptText(null);
+    }
     
 }

@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/axel_/OneDrive/Escritorio/GymManager/gymManager/GymManager/src/main/MainApp.java</file>
+            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/logic/member/MemberDAO.java</file>
+            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/gui/controllers/MemberDetailsController.java</file>
+            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/gui/controllers/MemberDetailsForMemberController.java</file>
+            <file>file:/C:/Users/ivanr/OneDrive/Escritorio/ProcesosGymManager/gymManager/GymManager/src/mx/fei/gymmanagerapp/gui/controllers/MemberRegisterController.java</file>
         </group>
     </open-files>
 </project-private>

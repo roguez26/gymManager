@@ -20,7 +20,7 @@ import mx.fei.gymmanagerapp.logic.implementations.Status;
 public class MemberDAO implements IMember {
 
     private static final Logger LOG = Logger.getLogger(MemberDAO.class.getName());
-    
+
     @Override
     public Member authenticateMember(String email, String password) throws DAOException {
         Member memberForAuthenticate = new Member();
@@ -40,7 +40,7 @@ public class MemberDAO implements IMember {
         } else {
             throw new DAOException("El correo no se encuentra registrado", Status.WARNING);
         }
-        
+
     }
 
     @Override
@@ -103,13 +103,15 @@ public class MemberDAO implements IMember {
         String passwordForUpdate = newMemberInformation.getPassword();
         String encriptedPasswordForUpdate;
         Member oldMemberInformation = getMemberById(newMemberInformation.getIdMember());
-        
+
         encriptedPasswordForUpdate = encryptPassword(passwordForUpdate);
-        
-        if (!oldMemberInformation.getPassword().equals(encriptedPasswordForUpdate)) {
+
+        if (!passwordForUpdate.equals("contraseña") && !oldMemberInformation.getPassword().equals(encriptedPasswordForUpdate)) {
             newMemberInformation.encryptPassword(encriptedPasswordForUpdate);
+        } else {
+            newMemberInformation.encryptPassword(oldMemberInformation.getPassword());
         }
-        
+
         if (!checkEmailDuplication(newMemberInformation)) {
             result = updateMemberTransaction(newMemberInformation);
         }
@@ -140,7 +142,7 @@ public class MemberDAO implements IMember {
     @Override
     public int deleteMemberById(int idMember) throws DAOException {
         int result = -1;
-        String statement = "DELETE FROM Miembro WHERE idMiembro = ?";
+        String statement = "UPDATE Miembro set visibilidad=0 WHERE idMiembro = ?";
         DatabaseManager databaseManager = new DatabaseManager();
 
         try (Connection connection = databaseManager.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(statement)) {
@@ -158,7 +160,7 @@ public class MemberDAO implements IMember {
     public Member getMemberByEmail(String email) throws DAOException {
         Member memberAux = new Member();
         DatabaseManager databaseManager = new DatabaseManager();
-        String statement = "SELECT * FROM miembro WHERE correo = ?";
+        String statement = "SELECT * FROM miembro WHERE correo = ? and visibilidad=1";
 
         try (Connection connection = databaseManager.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(statement)) {
             preparedStatement.setString(1, email);
@@ -190,7 +192,7 @@ public class MemberDAO implements IMember {
     public Member getMemberById(int idMember) throws DAOException {
         Member member = new Member();
         DatabaseManager databaseManager = new DatabaseManager();
-        String statement = "SELECT * FROM Miembro WHERE idMiembro = ?";
+        String statement = "SELECT * FROM Miembro WHERE idMiembro = ? and visibilidad=1";
 
         try (Connection connection = databaseManager.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(statement)) {
             preparedStatement.setInt(1, idMember);
@@ -211,7 +213,7 @@ public class MemberDAO implements IMember {
     public ArrayList<Member> getMembers() throws DAOException {
         ArrayList<Member> members = new ArrayList<>();
         DatabaseManager databaseManager = new DatabaseManager();
-        String statement = "SELECT * FROM Miembro";
+        String statement = "SELECT * FROM Miembro where visibilidad=1";
 
         try (Connection connection = databaseManager.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(statement); ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
@@ -240,7 +242,7 @@ public class MemberDAO implements IMember {
         }
         return false;
     }
-    
+
     public String encryptPassword(String password) throws DAOException {
         String encryptedPassword;
 
@@ -262,5 +264,81 @@ public class MemberDAO implements IMember {
         return encryptedPassword;
     }
 
-    
+    public Member getMemberByPhoneNumber(String phoneNumber) throws DAOException {
+        Member memberAux = new Member();
+        DatabaseManager databaseManager = new DatabaseManager();
+        String statement = "SELECT * FROM miembro WHERE telefono = ? and visibilidad=1";
+
+        try (Connection connection = databaseManager.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(statement)) {
+            preparedStatement.setString(1, phoneNumber);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    memberAux = initializeMemberFromResultSet(resultSet);
+                }
+            }
+        } catch (SQLException exception) {
+            LOG.log(Level.SEVERE, exception.getMessage(), exception);
+            throw new DAOException("No fue posible obtener al miembro", Status.ERROR);
+        }
+        return memberAux;
+    }
+
+    @Override
+    public int assignPayment(int idMember) throws DAOException {
+        int result = -1;
+        String statement = "UPDATE Miembro set estado='Pagado' WHERE idMiembro=?";
+        DatabaseManager databaseManager = new DatabaseManager();
+
+        try (Connection connection = databaseManager.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(statement)) {
+            preparedStatement.setInt(1, idMember);
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException exception) {
+            LOG.log(Level.SEVERE, exception.getMessage(), exception);
+            throw new DAOException("No fue posible asignar el pago al miembro", Status.ERROR);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean checkIsPending(Member member) throws DAOException {
+        String statement = "SELECT * FROM miembro WHERE idMiembro = ? AND estado = 'Pendiente'";
+        DatabaseManager databaseManager = new DatabaseManager();
+        try (Connection connection = databaseManager.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(statement)) {
+            preparedStatement.setInt(1, member.getIdMember());
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return resultSet.next();
+            }
+        } catch (SQLException exception) {
+            LOG.log(Level.SEVERE, exception.getMessage(), exception);
+            throw new DAOException("No fue posible hacer la validación", Status.ERROR);
+        }
+    }
+
+    @Override
+    public boolean checkDataDuplication(Member member) throws DAOException {
+        Member memberAux = new Member();
+        int idMember = 0;
+
+        try {
+            memberAux = getMemberByEmail(member.getEmail());
+            idMember = memberAux.getIdMember();
+        } catch (DAOException exception) {
+            throw new DAOException("No fue posible realizar la validacion, intente registrar mas tarde.", Status.ERROR);
+        }
+        if (member.getIdMember() != idMember && idMember > 0) {
+            throw new DAOException("El correo ya se encuentra registrado", Status.WARNING);
+        }
+
+        try {
+            memberAux = getMemberByPhoneNumber(member.getPhoneNumber());
+            idMember = memberAux.getIdMember();
+        } catch (DAOException exception) {
+            throw new DAOException("No fue posible realizar la validacion, intente registrar mas tarde.", Status.ERROR);
+        }
+        if (member.getIdMember() != idMember && idMember > 0) {
+            throw new DAOException("El numero de telefono ya se encuentra registrado", Status.WARNING);
+        }
+        return true;
+    }
+
 }

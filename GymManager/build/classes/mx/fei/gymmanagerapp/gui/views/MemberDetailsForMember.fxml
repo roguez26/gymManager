@@ -25,7 +25,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="514.0" prefWidth="328.0">
                <children>
-                  <VBox maxWidth="-Infinity" prefHeight="434.0" prefWidth="366.0" spacing="10.0">
+                  <VBox maxWidth="-Infinity" prefHeight="434.0" prefWidth="318.0" spacing="10.0">
                      <children>
                         <Label prefHeight="22.0" prefWidth="88.0" stylesheets="@../stylesheets/label.css" text="Nombre *" />
                         <TextField fx:id="nombreTextField" editable="false" prefHeight="12.0" prefWidth="266.0" stylesheets="@../stylesheets/textField.css" />
@@ -38,16 +38,21 @@
                         <Label prefHeight="27.0" prefWidth="93.0" stylesheets="@../stylesheets/label.css" text="Telefono *" />
                         <TextField fx:id="telefonoTextField" editable="false" prefHeight="12.0" prefWidth="266.0" stylesheets="@../stylesheets/textField.css" />
                         <Label stylesheets="@../stylesheets/label.css" text="Contraseña" />
-                        <PasswordField fx:id="passwordPasswordField" stylesheets="@../stylesheets/textField.css" text="contraseña" />
+                        <HBox prefHeight="29.0" prefWidth="328.0" spacing="6.0">
+                           <children>
+                              <PasswordField fx:id="passwordPasswordField" editable="false" prefHeight="27.0" prefWidth="275.0" stylesheets="@../stylesheets/textField.css" text="contraseña" />
+                              <Button fx:id="showButton" mnemonicParsing="false" onMousePressed="#showButtonIsPressed" onMouseReleased="#showButtonIsReleased" prefHeight="26.0" prefWidth="39.0" stylesheets="@../stylesheets/showAndHideButton.css" text="👁" visible="false" />
+                           </children>
+                        </HBox>
                         <Label />
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="509.0">
+                  <HBox alignment="CENTER" prefHeight="123.0" prefWidth="328.0">
                      <children>
                         <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonIsPressed" prefWidth="65.0" stylesheets="@../stylesheets/buttonGray.css" text="Regresar" />
-                        <Button fx:id="cancelButton" disable="true" mnemonicParsing="false" onAction="#cancelButtonIsPressed" prefWidth="65.0" text="Cancelar" visible="false" />
+                        <Button fx:id="cancelButton" disable="true" mnemonicParsing="false" onAction="#cancelButtonIsPressed" prefWidth="65.0" stylesheets="@../stylesheets/buttonGray.css" text="Cancelar" visible="false" />
                         <Button fx:id="updateButton" lineSpacing="40.0" mnemonicParsing="false" onAction="#updateButtonIsPressed" prefWidth="65.0" stylesheets="@../stylesheets/buttonBlue.css" text="Editar" />
-                        <Button fx:id="saveButton" disable="true" mnemonicParsing="false" onAction="#saveButtonIsPressed" prefWidth="65.0" text="Guardar" visible="false" />
+                        <Button fx:id="saveButton" disable="true" mnemonicParsing="false" onAction="#saveButtonIsPressed" prefWidth="65.0" stylesheets="@../stylesheets/buttonBlue.css" text="Guardar" visible="false" />
                      </children>
                   </HBox>
                </children>

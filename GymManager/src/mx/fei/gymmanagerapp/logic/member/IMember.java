@@ -17,5 +17,8 @@ public interface IMember {
     public Member getMemberById(int idMember) throws DAOException;
     public ArrayList<Member> getMembers() throws DAOException; 
     public Member authenticateMember(String email, String password) throws DAOException;
+    public boolean checkDataDuplication(Member member) throws DAOException;
+    public int assignPayment(int idMember) throws DAOException;
+    public boolean checkIsPending(Member member) throws DAOException;
     
 }

@@ -55,8 +55,10 @@ public class Member {
     }
 
     public void setMaternalSurname(String maternalSurname) {
-        FieldValidator fieldValidar = new FieldValidator();
-        fieldValidar.checkName(maternalSurname);
+        if (maternalSurname != null && !maternalSurname.isEmpty()) {
+            FieldValidator fieldValidar = new FieldValidator();
+            fieldValidar.checkName(maternalSurname);
+        }
         this.maternalSurname = maternalSurname;
     }
 
@@ -87,13 +89,13 @@ public class Member {
     public void setRegistrationDate(String registrationDate) {
         this.registrationDate = registrationDate;
     }
-    
+
     public void setPassword(String password) {
         FieldValidator fieldValidar = new FieldValidator();
         fieldValidar.checkPassword(password);
         this.password = password;
     }
-    
+
     public String getPassword() {
         return password;
     }
@@ -102,7 +104,7 @@ public class Member {
     public String toString() {
         return name + " " + paternalSurname + " " + maternalSurname;
     }
-    
+
     public void encryptPassword(String password) {
         this.password = password;
     }

@@ -40,6 +40,9 @@ public class MemberRegisterController implements Initializable {
     private Button cancelButton;
 
     @FXML
+    private Button showButton;
+
+    @FXML
     private TextField emailTextField;
 
     @FXML
@@ -60,6 +63,7 @@ public class MemberRegisterController implements Initializable {
     @FXML
     private ComboBox membershipTypeCombobox;
 
+    private String passwordForShow;
     private final IMember MEMBER_DAO = new MemberDAO();
 
     @Override
@@ -67,14 +71,13 @@ public class MemberRegisterController implements Initializable {
         membershipTypeCombobox.setItems(FXCollections.observableArrayList(
                 "Anual", "Mensual", "Trimestral"
         ));
-
     }
 
     @FXML
     private void saveButtonIsPressed(ActionEvent event) {
         try {
+            MEMBER_DAO.checkDataDuplication(initializeMember());
             invokeMemberRegister();
-            MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/MemberManagement");
         } catch (DAOException exception) {
             handleDAOException(exception);
         } catch (IllegalArgumentException exception) {
@@ -99,24 +102,24 @@ public class MemberRegisterController implements Initializable {
     private void invokeMemberRegister() throws DAOException, IOException {
         Member member = initializeMember();
         if (!fieldsAreEmpty()) {
-            if (doPayment()) {
-                int idMember = MEMBER_DAO.registerMember(member);
-                if (idMember > 0) {
-                    DialogController.getInformativeConfirmationDialog("Registrado", "Se ha realizado el registro con éxito.");
-                    cleanFields();
-                }
+            if (doPayment(member)) {
+
+                DialogController.getInformativeConfirmationDialog("Registrado", "Se ha realizado el registro con éxito.");
+                cleanFields();
+                MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/MemberManagement");
+
             } else {
                 DialogController.getInformativeConfirmationDialog("Advertencia", "Es necesario realizar el pago para poder registrar al miembro.");
             }
-
         } else {
             DialogController.getInformativeConfirmationDialog("Campos vacios", "Asegurese de llenar todos los campos con *");
         }
     }
 
-    private boolean doPayment() {
+    private boolean doPayment(Member member) throws DAOException {
         boolean response = false;
-
+        String status = "";
+        int idMember = 0;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/mx/fei/gymmanagerapp/gui/views/DoPayment.fxml"));
             Parent root = loader.load();
@@ -126,11 +129,20 @@ public class MemberRegisterController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait(); // Espera hasta que la ventana se cierre
+            stage.showAndWait();
 
-            return doPaymentController.getResponse();
+            response = doPaymentController.getResponse();
+            status = doPaymentController.getStatus();
         } catch (IOException exception) {
             Logger.getLogger(MemberRegisterController.class.getName()).log(Level.SEVERE, null, exception);
+        }
+        
+        if (response) {
+            idMember = MEMBER_DAO.registerMember(member);
+        }
+        if (status != null && status.equals("Pagado")) {
+            System.out.println("ssss");
+            MEMBER_DAO.assignPayment(idMember);
         }
 
         return response;
@@ -168,6 +180,9 @@ public class MemberRegisterController implements Initializable {
 
         member.setPhoneNumber(phoneNumberTextField.getText());
         member.setPassword(passwordPasswordField.getText());
+        if (membershipTypeCombobox.getValue() == null) {
+            throw new IllegalArgumentException("Debe seleccionar un tipo de membresía");
+        }
         return member;
     }
 
@@ -187,6 +202,21 @@ public class MemberRegisterController implements Initializable {
 
     private void handleValidationException(IllegalArgumentException exception) {
         DialogController.getDialog(new AlertMessage(exception.getMessage(), Status.WARNING));
+    }
+
+    @FXML
+    private void showButtonIsPressed() {
+        if (passwordPasswordField != null) {
+            passwordForShow = passwordPasswordField.getText();
+            passwordPasswordField.clear();
+            passwordPasswordField.setPromptText(passwordForShow);
+        }
+    }
+
+    @FXML
+    private void showButtonIsReleased() {
+        passwordPasswordField.setText(passwordForShow);
+        passwordPasswordField.setPromptText(null);
     }
 
 }

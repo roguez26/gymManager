@@ -38,9 +38,9 @@
       <HBox alignment="CENTER" prefHeight="80.0" prefWidth="509.0">
          <children>
             <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonIsPressed" prefHeight="26.0" prefWidth="89.0" stylesheets="@../stylesheets/buttonGray.css" text="Regresar" />
-            <Button fx:id="cancelButton" disable="true" mnemonicParsing="false" onAction="#cancelButtonIsPressed" prefWidth="65.0" text="Cancelar" visible="false" stylesheets="@../stylesheets/buttonGray.css"/>
+            <Button fx:id="cancelButton" disable="true" mnemonicParsing="false" onAction="#cancelButtonIsPressed" prefWidth="65.0" stylesheets="@../stylesheets/buttonGray.css" text="Cancelar" visible="false" />
             <Button fx:id="deleteButton" lineSpacing="40.0" mnemonicParsing="false" onAction="#deleteButtonIsPressed" prefHeight="26.0" prefWidth="90.0" stylesheets="@../stylesheets/buttonRed.css" text="Eliminar" />
-            <Button fx:id="saveButton" disable="true" mnemonicParsing="false" onAction="#saveButtonIsPressed" prefWidth="65.0" text="Guardar" visible="false" stylesheets="@../stylesheets/buttonBlue.css"/>
+            <Button fx:id="saveButton" disable="true" mnemonicParsing="false" onAction="#saveButtonIsPressed" prefWidth="65.0" stylesheets="@../stylesheets/buttonBlue.css" text="Guardar" visible="false" />
             <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButtonIsPressed" prefHeight="26.0" prefWidth="89.0" stylesheets="@../stylesheets/buttonBlue.css" text="Editar" />
          </children>
       </HBox>

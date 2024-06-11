@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import main.MainApp;
 import mx.fei.gymmanagerapp.gui.views.AlertMessage;
@@ -24,7 +25,17 @@ public class MemberDetailsController implements Initializable {
 
     @FXML
     private Button backButton;
-
+    
+    @FXML
+    private Button saveButton;
+    
+    @FXML
+    private Button cancelButton;
+    
+    @FXML
+    private Button showButton;
+    @FXML
+    private PasswordField passwordPasswordField;
 
     @FXML
     private Button deleteButton;
@@ -43,6 +54,11 @@ public class MemberDetailsController implements Initializable {
 
     @FXML
     private TextField telefonoTextField;
+    
+    @FXML
+    private Button editButton;
+    
+    private String passwordForShow;
     
     private Member member;
     private final IMember MEMBER_DAO = new MemberDAO();
@@ -124,5 +140,118 @@ public class MemberDetailsController implements Initializable {
     
     public Member getMember() {
         return member;
+    }
+    
+    @FXML
+    void cancelButtonIsPressed(ActionEvent event) {
+        if (cancelConfirmation()) {
+            changeComponentsEditabilityFalse();
+            initializeTextFields();
+        }
+    }
+    
+    private boolean cancelConfirmation() {
+        Optional<ButtonType> response = DialogController.getConfirmationDialog("Cancelar edicion", "¿Desea deshacer los cambios y regresar?");
+        return (response.get() == DialogController.BUTTON_YES);
+    }
+    
+    @FXML
+    void editButtonIsPressed(ActionEvent event) {
+        changeComponentsEditabilityTrue();
+    }
+    
+    @FXML
+    void saveButtonIsPressed(ActionEvent event) throws IOException {
+        int rowsAffected = -1;
+
+        if (saveConfirmation()) {
+            try {
+                MEMBER_DAO.checkDataDuplication(initializeMember());
+                rowsAffected = MEMBER_DAO.updateMember(initializeMember());
+                changeComponentsEditabilityFalse();
+            } catch (DAOException exception) {
+                handleDAOException(exception);
+            } catch (IllegalArgumentException exception) {
+                DialogController.getInformativeConfirmationDialog("Datos invalidos", exception.getMessage());
+            }
+        }
+        if (rowsAffected > 0) {
+            DialogController.getInformativeConfirmationDialog("Informacion actualizada", "Los cambios fueron realizados con exito");
+        }
+    }
+    
+    private boolean saveConfirmation() {
+        Optional<ButtonType> response = DialogController.getConfirmationDialog("Confirmar cambios", "¿Desea realizar los cambios?");
+        return (response.get() == DialogController.BUTTON_YES);
+    }
+    
+    private Member initializeMember() {
+        Member newMemberInformation = new Member();
+
+        newMemberInformation.setIdMember(member.getIdMember());
+        newMemberInformation.setName(nombreTextField.getText());
+        newMemberInformation.setPaternalSurname(paternalSurnameTextField.getText());
+        newMemberInformation.setMaternalSurname(maternalSurnameTextField.getText());
+        newMemberInformation.setEmail(emailTextField.getText());
+        newMemberInformation.setPhoneNumber(telefonoTextField.getText());
+        if (!"contraseña".equals(passwordPasswordField.getText())) {
+            newMemberInformation.setPassword(passwordPasswordField.getText());
+        } else {
+            newMemberInformation.encryptPassword(passwordPasswordField.getText());
+        }
+
+        return newMemberInformation;
+    }
+    
+    private void changeComponentsEditabilityTrue() {
+        editButton.setVisible(false);
+        backButton.setVisible(false);
+        cancelButton.setVisible(true);
+        cancelButton.setDisable(false);
+        saveButton.setVisible(true);
+        saveButton.setDisable(false);
+
+        nombreTextField.setEditable(true);
+        paternalSurnameTextField.setEditable(true);
+        maternalSurnameTextField.setEditable(true);
+        emailTextField.setEditable(true);
+        telefonoTextField.setEditable(true);
+        showButton.setVisible(true);
+        passwordPasswordField.setEditable(true);
+        deleteButton.setVisible(false);
+    }
+    
+    private void changeComponentsEditabilityFalse() {
+        editButton.setVisible(true);
+        backButton.setVisible(true);
+        cancelButton.setVisible(false);
+        cancelButton.setDisable(true);
+        saveButton.setVisible(false);
+        saveButton.setDisable(true);
+
+        nombreTextField.setEditable(false);
+        paternalSurnameTextField.setEditable(false);
+        maternalSurnameTextField.setEditable(false);
+        emailTextField.setEditable(false);
+        telefonoTextField.setEditable(false);
+        showButton.setVisible(false);
+        passwordPasswordField.setEditable(false);
+        passwordPasswordField.setText("contraseña");
+        deleteButton.setVisible(true);
+    }
+    
+     @FXML
+    void showButtonIsPressed() {
+        if (passwordPasswordField != null) {
+            passwordForShow = passwordPasswordField.getText();
+            passwordPasswordField.clear();
+            passwordPasswordField.setPromptText(passwordForShow);
+        }
+    }
+
+    @FXML
+    void showButtonIsReleased() {
+        passwordPasswordField.setText(passwordForShow);
+        passwordPasswordField.setPromptText(null);
     }
 }

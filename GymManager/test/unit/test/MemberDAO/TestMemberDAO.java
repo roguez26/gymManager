@@ -56,6 +56,22 @@ public class TestMemberDAO {
         }
         Assert.assertTrue(idMember > 0);
     }
+    
+    @Test
+    public void testUpdateMember() {
+        int idMember = 0;
+        initializeSuccesTestMember();
+        try {
+            TEST_MEMBER.setIdMember(TEST_MEMBER_DAO.registerMember(TEST_MEMBER));
+            TEST_MEMBER.setEmail("NewEmail@gmail.com");
+            idMember = TEST_MEMBER_DAO.updateMember(TEST_MEMBER);
+            TEST_MEMBER_DAO.deleteMemberById(idMember);
+  
+        } catch (DAOException exception) {
+            Logger.getLogger(TestMemberDAO.class.getName()).log(Level.SEVERE, null, exception);
+        }
+        Assert.assertTrue(idMember > 0);
+    }
 
     @Test
     public void testValidNullFieldsRegisterMember() {
@@ -81,7 +97,6 @@ public class TestMemberDAO {
             authenticatedMember = TEST_MEMBER_DAO.authenticateMember(TEST_MEMBER.getEmail(), "Papoi123!");
             
             TEST_MEMBER_DAO.deleteMemberById(idMember);
-            
             
         } catch (DAOException exception) {
             Logger.getLogger(TestMemberDAO.class.getName()).log(Level.SEVERE, null, exception);
