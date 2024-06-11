@@ -50,13 +50,18 @@ public class MemberDetailsForMemberController implements Initializable {
     private TextField telefonoTextField;
 
     @FXML
+    private Button showButton;
+
+    @FXML
     private Button updateButton;
 
     private Member member;
+    private String passwordForShow;
     private final IMember MEMBER_DAO = new MemberDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
     }
 
     @FXML
@@ -80,6 +85,7 @@ public class MemberDetailsForMemberController implements Initializable {
 
         if (saveConfirmation()) {
             try {
+                MEMBER_DAO.checkDataDuplication(initializeMember());
                 rowsAffected = MEMBER_DAO.updateMember(initializeMember());
                 changeComponentsEditabilityFalse();
             } catch (DAOException exception) {
@@ -132,6 +138,8 @@ public class MemberDetailsForMemberController implements Initializable {
         maternalSurnameTextField.setEditable(true);
         emailTextField.setEditable(true);
         telefonoTextField.setEditable(true);
+        showButton.setVisible(true);
+        passwordPasswordField.setEditable(true);
     }
 
     private void changeComponentsEditabilityFalse() {
@@ -147,7 +155,9 @@ public class MemberDetailsForMemberController implements Initializable {
         maternalSurnameTextField.setEditable(false);
         emailTextField.setEditable(false);
         telefonoTextField.setEditable(false);
-
+        showButton.setVisible(false);
+        passwordPasswordField.setEditable(false);
+        passwordPasswordField.setText("contraseña");
     }
 
     private void handleDAOException(DAOException exception) {
@@ -155,10 +165,9 @@ public class MemberDetailsForMemberController implements Initializable {
             DialogController.getDialog(new AlertMessage(exception.getMessage(), exception.getStatus()));
             switch (exception.getStatus()) {
                 case ERROR ->
-                    MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/EmployeeMain");
+                    MainApp.changeView("/mx/fei/gymmanagerapp/gui/views/LoginMember");
                 case FATAL ->
                     MainApp.changeView("/main/MainApp");
-
             }
         } catch (IOException ioException) {
 
@@ -177,7 +186,7 @@ public class MemberDetailsForMemberController implements Initializable {
         if (!"contraseña".equals(passwordPasswordField.getText())) {
             newMemberInformation.setPassword(passwordPasswordField.getText());
         } else {
-            newMemberInformation.encryptPassword(member.getPassword());
+            newMemberInformation.encryptPassword(passwordPasswordField.getText());
         }
 
         return newMemberInformation;
@@ -202,9 +211,32 @@ public class MemberDetailsForMemberController implements Initializable {
     public void setMember(Member member) {
         this.member = member;
         initializeTextFields(member);
+        try {
+            if (MEMBER_DAO.checkIsPending(member)) {
+                DialogController.getInformativeConfirmationDialog("Aviso", "No olvide realizar su pago dentro de un plazo de 3 dias despues del registro");
+            }
+        } catch (DAOException exception) {
+            handleDAOException(exception);
+        }
+
     }
 
     public Member getMember() {
         return member;
+    }
+
+    @FXML
+    void showButtonIsPressed() {
+        if (passwordPasswordField != null) {
+            passwordForShow = passwordPasswordField.getText();
+            passwordPasswordField.clear();
+            passwordPasswordField.setPromptText(passwordForShow);
+        }
+    }
+
+    @FXML
+    void showButtonIsReleased() {
+        passwordPasswordField.setText(passwordForShow);
+        passwordPasswordField.setPromptText(null);
     }
 }

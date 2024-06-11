@@ -13,8 +13,8 @@ import javafx.stage.Modality;
 public class MainApp extends Application {
 
     private static Scene scene;
-    private static final int WIDTH = 1000;
-    private static final int HEIGHT = 700;
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 670;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -31,12 +31,10 @@ public class MainApp extends Application {
     }
 
     public static void changeView(FXMLLoader loader) throws IOException {
-        Stage currentStage = (Stage) scene.getWindow();
         scene.setRoot(loader.load());
     }
 
     public static void changeView(String URL) throws IOException {
-        Stage currentStage = (Stage) scene.getWindow();
         MainApp.setRoot(URL);
     }
     

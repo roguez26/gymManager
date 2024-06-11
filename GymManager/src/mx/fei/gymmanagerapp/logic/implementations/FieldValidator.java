@@ -12,7 +12,8 @@ import java.util.regex.Pattern;
 public class FieldValidator {
 
     private final String EMAIL_REGEX = "^(?=.{3,45}$)[^\\s@]+@(?:uv\\.mx|estudiantes\\.uv\\.mx|gmail\\.com|hotmail\\.com|outlook\\.com|edu\\.mx)$";
-    private final String NAME_REGEX = "^(?!.*[\\!\\#\\$%\\&'\\(\\)\\*\\+\\-\\.,\\/\\:\\;<\\=\\>\\?\\@\\[\\\\\\]\\^_`\\{\\|\\}\\~])(?!.*  )(?!^ $)(?!.*\\d)^.{1,45}$";
+    private final String NAME_REGEX = "^(?=.{1,45}$)(?=[^\\.\\-']*[\\p{L}\\p{M}])(?!.*[.\\-']{2})(?!.*"
+            + "  )[\\p{L} \\p{M}.'-]+(?<![ \\-'])$";
     private final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
     private final String SHORT_RANGE = "^[\\p{L}0-9\\s]{3,45}$";
     private final String LONG_RANGE = "^.{3,255}$";
@@ -45,11 +46,10 @@ public class FieldValidator {
             }
         }
         throw new IllegalArgumentException("El nombre debe tener las siguientes características:\n"
-                + "1.- Debe contener de 3 a 45 caractéres como máximo\n"
-                + "2.- No puede contener más de 2 espacios en blanco juntos\n"
-                + "3.- No puede tener solo espacios en blanco\n"
-                + "4.- No debe contener los siguientes símbolos: (!, \", #, $, %, &, ', (, ), *, +, "
-                + ",, -, ., /, :, ;, <, =, >, ?, @, [, \\, ], ^, _, `, {, |, }, ~)\n");
+                + "1.- Los únicos símbolos permitidos son espacios, ., -, y '\n"
+                + "2.- No debe contener dos símbolos consecutivos.\n"
+                + "3.- No debe terminar con espacios en blanco, ' o -\n"
+                + "4.- No debe contener números");
     }
 
     public void checkPhoneNumber(String phoneNumber) {

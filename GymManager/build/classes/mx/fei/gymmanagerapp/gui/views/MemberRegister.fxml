@@ -35,7 +35,12 @@
             <Label stylesheets="@../stylesheets/label.css" text="Tipo de membresia" />
             <ComboBox fx:id="membershipTypeCombobox" prefWidth="150.0" stylesheets="@../stylesheets/combobox.css" />
             <Label stylesheets="@../stylesheets/label.css" text="Contraseña *" />
-            <PasswordField fx:id="passwordPasswordField" stylesheets="@../stylesheets/textField.css" />
+            <HBox prefHeight="29.0" prefWidth="402.0" spacing="6.0">
+               <children>
+                  <PasswordField fx:id="passwordPasswordField" prefHeight="27.0" prefWidth="359.0" stylesheets="@../stylesheets/textField.css" />
+                  <Button fx:id="showButton" mnemonicParsing="false" onMousePressed="#showButtonIsPressed" onMouseReleased="#showButtonIsReleased" prefHeight="26.0" prefWidth="42.0" stylesheets="@../stylesheets/showAndHideButton.css" text="👁" />
+               </children>
+            </HBox>
          </children>
       </VBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">

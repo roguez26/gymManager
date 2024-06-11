@@ -18,19 +18,28 @@
             </HBox>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="279.0" prefWidth="358.0">
                <children>
-                  <VBox maxWidth="-Infinity" prefHeight="390.0" prefWidth="330.0" spacing="15.0">
+                  <VBox alignment="CENTER" prefHeight="182.0" prefWidth="358.0" styleClass="content" stylesheets="@../stylesheets/formsContainerVBox.css">
                      <children>
-                        <Label stylesheets="@../stylesheets/label.css" text="Correo de empleado:" />
-                        <TextField fx:id="emailTextField" stylesheets="@../stylesheets/textField.css" />
-                        <Label stylesheets="@../stylesheets/label.css" text="Contraseña" />
-                        <PasswordField fx:id="passwordPasswordField" stylesheets="@../stylesheets/textField.css" />
-                        <VBox alignment="CENTER" prefHeight="99.0" prefWidth="385.0" spacing="15.0">
+                        <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="201.0" prefWidth="330.0" spacing="15.0">
                            <children>
-                              <Button fx:id="startSessionButton" mnemonicParsing="false" onAction="#startSessionButtonIsPressed" prefHeight="26.0" prefWidth="315.0" stylesheets="@../stylesheets/buttonBlue.css" text="Iniciar Sesión" />
+                              <Label stylesheets="@../stylesheets/label.css" text="Correo de empleado:" />
+                              <TextField fx:id="emailTextField" stylesheets="@../stylesheets/textField.css" />
+                              <Label stylesheets="@../stylesheets/label.css" text="Contraseña" />
+                              <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="330.0" spacing="6.0">
+                                 <children>
+                                    <PasswordField fx:id="passwordPasswordField" prefHeight="27.0" prefWidth="291.0" stylesheets="@../stylesheets/textField.css" />
+                                    <Button fx:id="showButton" mnemonicParsing="false" onMousePressed="#showButtonIsPressed" onMouseReleased="#showButtonIsReleased" prefHeight="24.0" prefWidth="35.0" stylesheets="@../stylesheets/showAndHideButton.css" text="👁" />
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>
                   </VBox>
+                  <HBox alignment="CENTER" prefHeight="86.0" prefWidth="330.0">
+                     <children>
+                        <Button fx:id="startSessionButton" mnemonicParsing="false" onAction="#startSessionButtonIsPressed" prefHeight="26.0" prefWidth="315.0" stylesheets="@../stylesheets/buttonBlue.css" text="Iniciar Sesión" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>

@@ -4,20 +4,42 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="466.0" prefWidth="518.0" styleClass="vbox-container" stylesheets="@../stylesheets/vboxBackground.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.fei.gymmanagerapp.gui.controllers.LoginMemberController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="464.0" styleClass="vbox-container" stylesheets="@../stylesheets/vboxBackground.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.fei.gymmanagerapp.gui.controllers.LoginMemberController">
    <children>
-      <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="594.0" prefWidth="415.0" spacing="15.0">
+      <VBox alignment="CENTER" prefHeight="502.0" prefWidth="435.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="432.0" stylesheets="@../stylesheets/titleLabel.css" text="Inicio de sesión GymManager" />
-            <Label stylesheets="@../stylesheets/label.css" text="Correo:" />
-            <TextField fx:id="emailTextField" stylesheets="@../stylesheets/textField.css" />
-            <Label stylesheets="@../stylesheets/label.css" text="Contraseña" />
-            <PasswordField fx:id="passwordPasswordField" stylesheets="@../stylesheets/textField.css" />
-            <VBox alignment="CENTER" prefHeight="99.0" prefWidth="385.0" spacing="15.0">
+            <HBox alignment="CENTER" prefHeight="166.0" prefWidth="435.0" stylesheets="@../stylesheets/vboxBackground.css">
                <children>
-                  <Button fx:id="startSessionButton" mnemonicParsing="false" onAction="#startSessionButtonIsPressed" prefHeight="26.0" prefWidth="315.0" stylesheets="@../stylesheets/buttonBlue.css" text="Iniciar Sesión" />
+                  <Label stylesheets="@../stylesheets/titleLabel.css" text="Inicio de sesión GymManager" />
+               </children>
+            </HBox>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="279.0" prefWidth="358.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="182.0" prefWidth="358.0" styleClass="content" stylesheets="@../stylesheets/formsContainerVBox.css">
+                     <children>
+                        <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="201.0" prefWidth="330.0" spacing="15.0">
+                           <children>
+                              <Label stylesheets="@../stylesheets/label.css" text="Correo de miembro:" />
+                              <TextField fx:id="emailTextField" stylesheets="@../stylesheets/textField.css" />
+                              <Label stylesheets="@../stylesheets/label.css" text="Contraseña" />
+                              <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="330.0" spacing="6.0">
+                                 <children>
+                                    <PasswordField fx:id="passwordPasswordField" prefHeight="27.0" prefWidth="291.0" stylesheets="@../stylesheets/textField.css" />
+                                    <Button fx:id="showButton" mnemonicParsing="false" onMousePressed="#showButtonIsPressed" onMouseReleased="#showButtonIsReleased" prefHeight="24.0" prefWidth="35.0" stylesheets="@../stylesheets/showAndHideButton.css" text="👁" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="86.0" prefWidth="330.0">
+                     <children>
+                        <Button fx:id="startSessionButton" mnemonicParsing="false" onAction="#startSessionButtonIsPressed" prefHeight="26.0" prefWidth="315.0" stylesheets="@../stylesheets/buttonBlue.css" text="Iniciar Sesión" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>

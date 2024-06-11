@@ -33,9 +33,14 @@ public class LoginEmployeeController implements Initializable {
 
     @FXML
     private PasswordField passwordPasswordField;
+    
+    @FXML
+    private Button showButton;
 
     @FXML
     private Button startSessionButton;
+    
+    private String passwordForShow;
     private static final Logger LOG = Logger.getLogger(EmployeeDAO.class.getName());
     private final IEmployee EMPLOYEE_DAO = new EmployeeDAO();
 
@@ -87,5 +92,20 @@ public class LoginEmployeeController implements Initializable {
         } catch (IOException ioException) {
             LOG.log(Level.SEVERE, exception.getMessage(), exception);
         }
+    }
+    
+    @FXML
+    void showButtonIsPressed() {
+        if (passwordPasswordField != null) {
+            passwordForShow = passwordPasswordField.getText();
+            passwordPasswordField.clear();
+            passwordPasswordField.setPromptText(passwordForShow);
+        }
+    }
+
+    @FXML
+    void showButtonIsReleased() {
+        passwordPasswordField.setText(passwordForShow);
+        passwordPasswordField.setPromptText(null);
     }
 }
